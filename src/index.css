@@ -7,13 +7,16 @@
     --font-merriweather: 'Merriweather', serif;
   }
 
-  html {
+  html, body {
     height: 100%;
+    overflow: hidden;
     overscroll-behavior: none;
   }
 
   body {
-    min-height: 100%;
+    position: fixed;
+    inset: 0;
+    width: 100%;
     font-family: var(--font-merriweather);
     background-color: #2A1810;
     color: #F3E8D2;
@@ -21,8 +24,14 @@
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
-    overscroll-behavior: none;
+  }
+
+  #root {
+    height: 100%;
+    overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   h1, h2, .font-fraktur {

@@ -49,6 +49,9 @@ export const CircularTable = ({
         const innerX = 50 + innerEdgePercent * Math.cos(angleRad + Math.PI);
         const innerY = 50 + innerEdgePercent * Math.sin(angleRad + Math.PI);
 
+        // Tangent rotation so the +/- pair sits orthogonal to the radius at every seat
+        const tangentDeg = angleDeg + 90;
+
         const heraldry = HERALDRY_COLORS.find(c => c.hex === player.color) || HERALDRY_COLORS[0];
         const bid = bids[player.id] !== undefined ? bids[player.id] : 0;
         const actual = actuals[player.id] !== undefined ? actuals[player.id] : 0;
@@ -79,14 +82,11 @@ export const CircularTable = ({
                   backgroundColor: player.color,
                 }}
               >
-                {/* Header: Heraldry Icon & Name */}
+                {/* Header: Name */}
                 <div className="text-center w-full truncate px-1">
-                  <div className="flex items-center justify-center gap-1.5">
-                    <span className="text-sm sm:text-base">{heraldry.icon}</span>
-                    <span className="text-sm sm:text-base font-extrabold font-cinzel truncate drop-shadow-md">
-                      {player.name}
-                    </span>
-                  </div>
+                  <span className="text-sm sm:text-base font-extrabold font-cinzel truncate drop-shadow-md">
+                    {player.name}
+                  </span>
                 </div>
 
                 {/* Center Stats Display: Bid vs Actual */}
@@ -122,10 +122,14 @@ export const CircularTable = ({
                 />
               </motion.div>
 
-              {/* +/- controls, anchored on the circle's edge facing the table center (unrotated) */}
+              {/* +/- controls, anchored on the circle's edge facing the table center, orthogonal to the radius */}
               <div
-                className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 z-30"
-                style={{ left: `${innerX}%`, top: `${innerY}%` }}
+                className="absolute flex items-center gap-1.5 z-30"
+                style={{
+                  left: `${innerX}%`,
+                  top: `${innerY}%`,
+                  transform: `translate(-50%, -50%) rotate(${tangentDeg}deg)`,
+                }}
               >
                 <button
                   type="button"
@@ -136,8 +140,19 @@ export const CircularTable = ({
                   }`}
                   title="Undo / Decrement Trick"
                 >
-                  <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <Minus
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                    style={{ transform: `rotate(${-tangentDeg}deg)` }}
+                  />
                 </button>
+
+                {/* Heraldry Icon, between the two controls — matches the card's own outward-facing orientation */}
+                <span
+                  className="text-3xl sm:text-4xl leading-none shrink-0"
+                  style={{ transform: `rotate(${rotationDeg - tangentDeg}deg)` }}
+                >
+                  {heraldry.icon}
+                </span>
 
                 <button
                   type="button"
@@ -145,7 +160,10 @@ export const CircularTable = ({
                   className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold shrink-0"
                   title="Tap to Add Won Trick"
                 >
-                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
+                  <Plus
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]"
+                    style={{ transform: `rotate(${-tangentDeg}deg)` }}
+                  />
                 </button>
               </div>
             </div>
