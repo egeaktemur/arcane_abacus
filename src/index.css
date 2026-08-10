@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-fraktur: 'UnifrakturMaguntia', cursive, serif;
+    --font-cinzel: 'Cinzel', serif;
+    --font-merriweather: 'Merriweather', serif;
+  }
+
+  body {
+    font-family: var(--font-merriweather);
+    background-color: #2A1810;
+    color: #F3E8D2;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  h1, h2, .font-fraktur {
+    font-family: var(--font-fraktur);
+  }
+
+  .font-cinzel {
+    font-family: var(--font-cinzel);
+  }
+}
+
+/* Medieval Parchment Texture & Card Styling */
+.parchment-bg {
+  background-color: #F3E8D2;
+  background-image: 
+    radial-gradient(#E5D3B3 1px, transparent 1px),
+    radial-gradient(#D6C09C 1px, #F3E8D2 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  color: #2C1810;
+  box-shadow: inset 0 0 40px rgba(62, 39, 35, 0.25), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dark-wood-bg {
+  background-color: #3E2723;
+  background-image: linear-gradient(135deg, #2D1A16 25%, transparent 25%), 
+                    linear-gradient(225deg, #2D1A16 25%, transparent 25%), 
+                    linear-gradient(45deg, #2D1A16 25%, transparent 25%), 
+                    linear-gradient(315deg, #2D1A16 25%, #3E2723 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}
+
+/* Gold Border Frame */
+.medieval-border {
+  border: 3px double #D4AF37;
+  outline: 1px solid #8C6D1F;
+}
+
+.gold-text-glow {
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #2A1810;
+}
+::-webkit-scrollbar-thumb {
+  background: #8C6D1F;
+  border-radius: 4px;
+}
