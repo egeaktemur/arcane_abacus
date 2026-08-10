@@ -16,21 +16,19 @@ export const SlotMachineWheel = ({
   const numberOptions = Array.from({ length: maxVal + 1 }, (_, i) => i);
 
   const handleIncrement = () => {
+    if (value >= maxVal) return;
     let next = value + 1;
-    if (next > maxVal) next = 0;
     if (next === forbiddenVal) {
-      next = (next + 1) <= maxVal ? next + 1 : 0;
-      if (next === forbiddenVal) next = value;
+      next = next + 1 <= maxVal ? next + 1 : value;
     }
     onChange(next);
   };
 
   const handleDecrement = () => {
+    if (value <= 0) return;
     let prev = value - 1;
-    if (prev < 0) prev = maxVal;
     if (prev === forbiddenVal) {
-      prev = (prev - 1) >= 0 ? prev - 1 : maxVal;
-      if (prev === forbiddenVal) prev = value;
+      prev = prev - 1 >= 0 ? prev - 1 : value;
     }
     onChange(prev);
   };
@@ -46,8 +44,9 @@ export const SlotMachineWheel = ({
   };
 
   // Handle Touch Pan / Drag Gesture on 3D Drum
+  const threshold = 90; // Distance (px) the drum must be dragged before it steps
+
   const handlePan = (event, info) => {
-    const threshold = 20; // Sensitivity threshold for step change
     const currentDelta = accumulatedDelta + info.delta.y;
 
     if (currentDelta < -threshold) {
@@ -59,6 +58,11 @@ export const SlotMachineWheel = ({
     } else {
       setAccumulatedDelta(currentDelta);
     }
+  };
+
+  // Spring back to the current value if the drag is released before crossing the threshold
+  const handlePanEnd = () => {
+    setAccumulatedDelta(0);
   };
 
   return (
@@ -107,8 +111,9 @@ export const SlotMachineWheel = ({
         </div>
 
         {/* Interactive 3D Raffle Cylinder Stage */}
-        <motion.div 
+        <motion.div
           onPan={handlePan}
+          onPanEnd={handlePanEnd}
           className="w-full h-full relative flex items-center justify-center touch-none select-none"
           style={{ transformStyle: 'preserve-3d' }}
         >
