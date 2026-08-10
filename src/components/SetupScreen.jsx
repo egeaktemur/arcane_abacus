@@ -16,7 +16,7 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
   const isFormValid = isValidCount && !emptyNames;
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center p-3 sm:p-6 bg-[#2A1810] relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-3 sm:p-6 bg-[#2A1810] relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 

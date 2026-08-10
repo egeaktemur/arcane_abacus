@@ -24,7 +24,7 @@ export const ResolutionScreen = ({
   const isValidRoundResolution = totalActuals === currentRound;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between p-3 sm:p-5 bg-[#2A1810] relative overflow-hidden select-none">
+    <div className="h-full flex flex-col items-center justify-between p-3 sm:p-5 bg-[#2A1810] relative overflow-hidden select-none">
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info */}

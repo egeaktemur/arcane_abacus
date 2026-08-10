@@ -13,7 +13,6 @@ import {
   Crown,
   Scroll,
   CheckCircle2,
-  Sparkles,
   XCircle
 } from 'lucide-react';
 
@@ -66,9 +65,6 @@ export const BiddingScreen = ({
   const isLastBidder = currentBidStep === biddingOrder.length - 1;
   const isFirstBidder = currentBidStep === 0;
 
-  // Sum of all bids submitted so far
-  const totalBidsEntered = Object.values(bids).reduce((acc, curr) => acc + (curr || 0), 0);
-
   const handleConfirmBid = () => {
     // Ensure bid is not forbidden
     if (currentBidVal === forbiddenBid) return;
@@ -81,7 +77,7 @@ export const BiddingScreen = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none">
+    <div className="h-full flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none">
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info Banner */}
@@ -101,20 +97,7 @@ export const BiddingScreen = ({
             </div>
           </div>
 
-          <div className="text-center">
-            <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Total Cards</span>
-            <span className="text-base font-extrabold text-[#D4AF37] font-cinzel">
-              {currentRound} {currentRound === 1 ? 'Trick' : 'Tricks'}
-            </span>
-          </div>
-
           <div className="flex items-center gap-3">
-            <div className="text-right">
-              <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Bidding Step</span>
-              <span className="text-sm font-bold font-cinzel text-[#F3E8D2]">
-                {currentBidStep + 1} of {playerCount}
-              </span>
-            </div>
             <button
               type="button"
               onClick={() => setShowTerminateModal(true)}
@@ -168,18 +151,7 @@ export const BiddingScreen = ({
                     </span>
                   )}
                 </div>
-                <span className="text-xs font-cinzel text-white/80 uppercase">
-                  {wizardColor.name} • Bid Selection
-                </span>
               </div>
-            </div>
-
-            {/* Step Badge */}
-            <div className="z-10 text-right">
-              <span className="text-xs uppercase font-cinzel text-white/70 block">Guessing</span>
-              <span className="text-xs font-cinzel bg-black/30 px-2 py-1 rounded-lg border border-white/20">
-                {isLastBidder ? '🔒 Final Bidder' : `Step ${currentBidStep + 1}/${playerCount}`}
-              </span>
             </div>
           </div>
 
@@ -243,13 +215,6 @@ export const BiddingScreen = ({
         className="w-full max-w-lg z-10 mt-4"
       >
         <div className="bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl p-3 shadow-xl">
-          <div className="flex items-center justify-between text-xs font-cinzel text-[#D4AF37] mb-2 px-1">
-            <span className="font-bold flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> Bids Submitted This Round
-            </span>
-            <span>Total Bids: <strong>{totalBidsEntered}</strong> / {currentRound}</span>
-          </div>
-
           {/* Player Bids Badges Row */}
           <div className="flex items-center justify-around gap-1.5 overflow-x-auto py-1">
             {biddingOrder.map((playerIdx, stepIdx) => {

@@ -105,7 +105,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
   const isAllRevealed = revealedCount >= totalCount;
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none ${
+    <div className={`h-full flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none ${
       screenShaking ? 'animate-shake' : ''
     }`}>
       {/* Dark Ambient Background with Gold Particles */}
