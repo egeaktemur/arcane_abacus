@@ -4,7 +4,8 @@ import {
   GAME_STATES, 
   calculateMaxRounds, 
   HERALDRY_COLORS,
-  getStartingPlayerIndex
+  getStartingPlayerIndex,
+  calculateRoundScore
 } from '../types/game';
 
 const LOCAL_STORAGE_KEY = 'arcane_abacus_game_state_v1';
@@ -112,6 +113,7 @@ export const useGameState = () => {
           bids: {},
           actuals: {},
         },
+        history: [],
       };
     });
   }, []);
@@ -182,10 +184,123 @@ export const useGameState = () => {
 
   // Finalize all bids for the round and transition to RESOLUTION phase
   const finalizeBids = useCallback(() => {
-    setGameState(prev => ({
-      ...prev,
-      gameState: GAME_STATES.RESOLUTION,
-    }));
+    setGameState(prev => {
+      // Initialize actuals to 0 for all players if undefined
+      const initialActuals = {};
+      prev.players.forEach(p => {
+        initialActuals[p.id] = prev.roundData.actuals[p.id] || 0;
+      });
+
+      return {
+        ...prev,
+        gameState: GAME_STATES.RESOLUTION,
+        roundData: {
+          ...prev.roundData,
+          actuals: initialActuals,
+        },
+      };
+    });
+  }, []);
+
+  // Increment actual tricks won by a player
+  const incrementActual = useCallback((playerId) => {
+    setGameState(prev => {
+      const currentActuals = prev.roundData.actuals || {};
+      const currentVal = currentActuals[playerId] || 0;
+      const sumActuals = Object.values(currentActuals).reduce((acc, curr) => acc + (curr || 0), 0);
+
+      // Total actual tricks cannot exceed current round number
+      if (sumActuals >= prev.currentRound) return prev;
+
+      return {
+        ...prev,
+        roundData: {
+          ...prev.roundData,
+          actuals: {
+            ...currentActuals,
+            [playerId]: currentVal + 1,
+          },
+        },
+      };
+    });
+  }, []);
+
+  // Decrement actual tricks won by a player (Undo)
+  const decrementActual = useCallback((playerId) => {
+    setGameState(prev => {
+      const currentActuals = prev.roundData.actuals || {};
+      const currentVal = currentActuals[playerId] || 0;
+      if (currentVal <= 0) return prev;
+
+      return {
+        ...prev,
+        roundData: {
+          ...prev.roundData,
+          actuals: {
+            ...currentActuals,
+            [playerId]: currentVal - 1,
+          },
+        },
+      };
+    });
+  }, []);
+
+  // Finalize the current round, update scores, and advance to next round
+  const finalizeRound = useCallback(() => {
+    setGameState(prev => {
+      const { players, currentRound, maxRounds, roundData, history = [] } = prev;
+      const { bids = {}, actuals = {} } = roundData;
+
+      // Calculate score changes for each player
+      const roundScores = {};
+      const updatedPlayers = players.map(p => {
+        const bid = bids[p.id] || 0;
+        const actual = actuals[p.id] || 0;
+        const scoreChange = calculateRoundScore(bid, actual);
+        roundScores[p.id] = scoreChange;
+
+        return {
+          ...p,
+          totalScore: (p.totalScore || 0) + scoreChange,
+        };
+      });
+
+      // Record round in history
+      const roundRecord = {
+        roundNumber: currentRound,
+        bids: { ...bids },
+        actuals: { ...actuals },
+        scores: roundScores,
+      };
+
+      const nextRound = currentRound + 1;
+      const isGameOver = nextRound > maxRounds;
+
+      if (isGameOver) {
+        return {
+          ...prev,
+          gameState: GAME_STATES.ENDGAME,
+          players: updatedPlayers,
+          history: [...history, roundRecord],
+        };
+      }
+
+      const nextStartingIndex = getStartingPlayerIndex(nextRound, players.length);
+
+      return {
+        ...prev,
+        gameState: GAME_STATES.BIDDING,
+        currentRound: nextRound,
+        players: updatedPlayers,
+        history: [...history, roundRecord],
+        roundData: {
+          startingPlayerIndex: nextStartingIndex,
+          currentBidStep: 0,
+          bids: {},
+          actuals: {},
+        },
+      };
+    });
   }, []);
 
   // Reset complete game state back to Setup
@@ -204,6 +319,9 @@ export const useGameState = () => {
     prevBidder,
     setBidStep,
     finalizeBids,
+    incrementActual,
+    decrementActual,
+    finalizeRound,
     resetGame,
   };
 };

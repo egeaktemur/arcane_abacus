@@ -62,12 +62,10 @@ export const getBiddingOrder = (currentRound, playerCount) => {
  * Therefore: last_bid != currentRound - sum(prior_bids)
  */
 export const calculateForbiddenBid = (currentRound, bids, players, biddingOrder, stepIndex) => {
-  // Only the last player in the bidding order faces the restriction rule
   if (stepIndex !== biddingOrder.length - 1) {
     return null;
   }
 
-  // Sum prior bids
   let sumPrior = 0;
   for (let i = 0; i < stepIndex; i++) {
     const playerIdx = biddingOrder[i];
@@ -79,12 +77,27 @@ export const calculateForbiddenBid = (currentRound, bids, players, biddingOrder,
 
   const forbidden = currentRound - sumPrior;
 
-  // Only forbidden if it falls within valid bid range [0, currentRound]
   if (forbidden >= 0 && forbidden <= currentRound) {
     return forbidden;
   }
 
   return null;
+};
+
+/**
+ * Calculate round points using exact project.MD scoring formula:
+ * Success (actual == bid): 2 + bid
+ * Failure (actual != bid): -Math.abs(bid - actual)
+ */
+export const calculateRoundScore = (bid, actual) => {
+  const b = Number(bid) || 0;
+  const a = Number(actual) || 0;
+
+  if (a === b) {
+    return 2 + b;
+  } else {
+    return -Math.abs(b - a);
+  }
 };
 
 export const INITIAL_GAME_STATE = {
@@ -100,7 +113,7 @@ export const INITIAL_GAME_STATE = {
   maxRounds: 15,
   roundData: {
     startingPlayerIndex: 0,
-    currentBidStep: 0, // step index (0 to playerCount - 1) in bidding sequence
+    currentBidStep: 0,
     bids: {},
     actuals: {},
   },

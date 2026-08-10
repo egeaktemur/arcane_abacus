@@ -33,11 +33,13 @@
 ## ⚔️ Completed Features
 
 - [x] **Phase 1: Core Logic & Setup**: Dynamic player roster (3–6 wizards), Heraldry Color duplication locking, form validation, and `localStorage` persistence hook.
-- [x] **Phase 2: Bidding Interface**:
-  - Interactive **Slot Machine Wheel UI** with drag and step controls.
-  - **Dynamic Turn Rotation**: Dealer/lead shift per round (`(currentRound - 1) % playerCount`).
-  - **Last Player Restriction Rule**: Automatically calculates prior bid sums and visually restricts the forbidden bid value (`sum(bids) != totalCards`).
-  - **Bid Editing & Step Navigation**: Next/Previous arrows allowing turn navigation and bid revision before final sealing.
+- [x] **Phase 2: Bidding Interface**: Interactive Slot Machine Wheel UI, Turn Rotation (`(currentRound - 1) % playerCount`), and dynamic Last Player Restriction Rule.
+- [x] **Phase 3: The Circular Table & Resolution**:
+  - **Trigonometric Layout Math**: Positions buttons in a circle ($\theta_i = i \times \frac{360^\circ}{N} - 90^\circ$), rotated outward for physical tabletop play.
+  - **Tap Controls & Undo**: Tap-to-increment actual tricks won with undo (`-`) button.
+  - **Round Validation**: Enforces exact trick accounting (`totalActuals == currentRound`) before finalizing.
+  - **Scoring Engine**: Implements exact Wizard scoring (`actual == bid ? 2 + bid : -Math.abs(bid - actual)`).
+  - **Score Hiding**: Strictly hides total scores during gameplay to maintain suspense.
 - [x] **Automated CI/CD**: GitHub Actions workflow compiles the app on push to `main` and deploys to GitHub Pages.
 
 ---

@@ -2,6 +2,7 @@ import React from 'react';
 import { useGameState } from './hooks/useGameState';
 import { SetupScreen } from './components/SetupScreen';
 import { BiddingScreen } from './components/BiddingScreen';
+import { ResolutionScreen } from './components/ResolutionScreen';
 import { ActiveGameView } from './components/ActiveGameView';
 import { GAME_STATES } from './types/game';
 
@@ -17,6 +18,9 @@ export default function App() {
     prevBidder,
     setBidStep,
     finalizeBids,
+    incrementActual,
+    decrementActual,
+    finalizeRound,
     resetGame 
   } = useGameState();
 
@@ -43,7 +47,16 @@ export default function App() {
         />
       )}
 
-      {gameState.gameState !== GAME_STATES.SETUP && gameState.gameState !== GAME_STATES.BIDDING && (
+      {gameState.gameState === GAME_STATES.RESOLUTION && (
+        <ResolutionScreen
+          gameState={gameState}
+          incrementActual={incrementActual}
+          decrementActual={decrementActual}
+          finalizeRound={finalizeRound}
+        />
+      )}
+
+      {gameState.gameState === GAME_STATES.ENDGAME && (
         <ActiveGameView
           gameState={gameState}
           resetGame={resetGame}
