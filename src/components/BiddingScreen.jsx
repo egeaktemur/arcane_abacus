@@ -9,11 +9,9 @@ import { SlotMachineWheel } from './SlotMachineWheel';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Shield, 
   Crown, 
   Scroll, 
   CheckCircle2,
-  HelpCircle,
   Sparkles
 } from 'lucide-react';
 
@@ -162,7 +160,7 @@ export const BiddingScreen = ({
             </div>
           </div>
 
-          {/* Slot Machine Number Selector */}
+          {/* Slot Machine 3D Number Wheel Selector */}
           <div className="my-2">
             <SlotMachineWheel
               value={currentBidVal}
@@ -173,13 +171,14 @@ export const BiddingScreen = ({
             />
           </div>
 
-          {/* Navigation & Action Controls */}
-          <div className="flex items-center gap-3 mt-6">
+          {/* Perfectly Centered Action Controls Container */}
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 mt-6">
+            {/* Left Slot: Previous Bidder Button */}
             <button
               type="button"
               disabled={isFirstBidder}
               onClick={prevBidder}
-              className={`p-3.5 rounded-xl border font-cinzel flex items-center justify-center transition-all ${
+              className={`w-12 h-12 rounded-xl border font-cinzel flex items-center justify-center transition-all ${
                 isFirstBidder
                   ? 'opacity-30 cursor-not-allowed bg-gray-200 border-gray-400 text-gray-500'
                   : 'bg-[#3E2723] hover:bg-[#2A1810] text-[#F3E8D2] border-[#D4AF37]/50 shadow-md active:scale-95'
@@ -189,11 +188,12 @@ export const BiddingScreen = ({
               <ChevronLeft className="w-6 h-6 text-[#D4AF37]" />
             </button>
 
+            {/* Center Slot: Confirm & Next / Seal All Bids Button */}
             <button
               type="button"
               disabled={currentBidVal === forbiddenBid}
               onClick={handleConfirmBid}
-              className={`flex-1 py-4 rounded-xl font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl ${
+              className={`w-full py-4 rounded-xl font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl text-center ${
                 currentBidVal === forbiddenBid
                   ? 'bg-gray-400 text-gray-700 cursor-not-allowed border border-gray-500'
                   : 'bg-gradient-to-r from-[#8B0000] via-[#5C0A0A] to-[#8B0000] text-[#F3E8D2] hover:brightness-110 active:scale-[0.98] border border-[#D4AF37]/60'
@@ -206,6 +206,9 @@ export const BiddingScreen = ({
                 <ChevronRight className="w-5 h-5 text-[#D4AF37]" />
               )}
             </button>
+
+            {/* Right Slot: Equal w-12 Spacer ensuring 100% exact center alignment */}
+            <div className="w-12 h-12 pointer-events-none" />
           </div>
         </div>
       </motion.div>

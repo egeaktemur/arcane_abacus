@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CircularTable } from './CircularTable';
-import { Scroll, Shield, CheckCircle2, AlertCircle, Award } from 'lucide-react';
+import { Scroll, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const ResolutionScreen = ({
   gameState,
@@ -61,13 +61,7 @@ export const ResolutionScreen = ({
       </motion.div>
 
       {/* Center Table Layout */}
-      <div className="my-auto w-full max-w-xl z-10 flex flex-col items-center justify-center py-2">
-        <div className="text-center mb-2">
-          <p className="text-xs font-cinzel text-[#D4AF37] italic">
-            Place device flat in middle of table • Tap your heraldry button to claim won tricks
-          </p>
-        </div>
-
+      <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2">
         <CircularTable
           players={players}
           bids={bids}
