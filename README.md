@@ -34,12 +34,11 @@
 
 - [x] **Phase 1: Core Logic & Setup**: Dynamic player roster (3–6 wizards), Heraldry Color duplication locking, form validation, and `localStorage` persistence hook.
 - [x] **Phase 2: Bidding Interface**: Interactive Slot Machine Wheel UI, Turn Rotation (`(currentRound - 1) % playerCount`), and dynamic Last Player Restriction Rule.
-- [x] **Phase 3: The Circular Table & Resolution**:
-  - **Trigonometric Layout Math**: Positions buttons in a circle ($\theta_i = i \times \frac{360^\circ}{N} - 90^\circ$), rotated outward for physical tabletop play.
-  - **Tap Controls & Undo**: Tap-to-increment actual tricks won with undo (`-`) button.
-  - **Round Validation**: Enforces exact trick accounting (`totalActuals == currentRound`) before finalizing.
-  - **Scoring Engine**: Implements exact Wizard scoring (`actual == bid ? 2 + bid : -Math.abs(bid - actual)`).
-  - **Score Hiding**: Strictly hides total scores during gameplay to maintain suspense.
+- [x] **Phase 3: The Circular Table & Resolution**: Trigonometric circular button math ($\theta_i = i \times \frac{360^\circ}{N} - 90^\circ$), tap controls with undo, trick resolution validation, and score hiding.
+- [x] **Phase 4: Theming & The Endgame Reveal**:
+  - **Sequential Reveal Pacing**: Suspenseful 3.5s delay pacing from Last Place (lowest score) up to 1st Place (Winner).
+  - **Dramatic Visual Effects**: Screen shake for last place, unfurling heraldry banners, and falling digital gold coin confetti for the champion!
+  - **Match Breakdown Log**: Round-by-round expandable match table showing bids, actual tricks, and scores earned.
 - [x] **Automated CI/CD**: GitHub Actions workflow compiles the app on push to `main` and deploys to GitHub Pages.
 
 ---
@@ -48,7 +47,7 @@
 
 * **Framework:** React 19 (via Vite 6)
 * **Styling:** Tailwind CSS v4
-* **Animations & Icons:** Framer Motion & Lucide React
+* **Animations & Icons:** Framer Motion & Lucide React & Canvas Confetti
 * **Deployment:** GitHub Actions + GitHub Pages
 
 ---

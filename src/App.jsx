@@ -3,7 +3,7 @@ import { useGameState } from './hooks/useGameState';
 import { SetupScreen } from './components/SetupScreen';
 import { BiddingScreen } from './components/BiddingScreen';
 import { ResolutionScreen } from './components/ResolutionScreen';
-import { ActiveGameView } from './components/ActiveGameView';
+import { EndgameScreen } from './components/EndgameScreen';
 import { GAME_STATES } from './types/game';
 
 export default function App() {
@@ -57,7 +57,7 @@ export default function App() {
       )}
 
       {gameState.gameState === GAME_STATES.ENDGAME && (
-        <ActiveGameView
+        <EndgameScreen
           gameState={gameState}
           resetGame={resetGame}
         />
