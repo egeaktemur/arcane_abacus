@@ -162,7 +162,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
         )}
 
         {/* Players Reveal Banners Stack (Sorted from 1st place top to Last place bottom when fully revealed) */}
-        <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-1">
+        <div className="touch-scroll space-y-3 max-h-[60vh] overflow-y-auto pr-1">
           {/* Display in Descending Rank Order (1st place at top) */}
           {[...sortedPlayersAsc].reverse().map((player, reverseIndex) => {
             const placeFromBottom = totalCount - reverseIndex; // 1 = Last place, totalCount = 1st place
@@ -289,7 +289,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="mt-3 parchment-bg rounded-xl p-4 border border-[#3E2723]/30 overflow-x-auto max-h-60 shadow-inner"
+                className="touch-scroll mt-3 parchment-bg rounded-xl p-4 border border-[#3E2723]/30 overflow-x-auto max-h-60 shadow-inner"
               >
                 <table className="w-full text-xs font-cinzel text-[#2C1810]">
                   <thead>

@@ -7,6 +7,12 @@
     --font-merriweather: 'Merriweather', serif;
   }
 
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
   body {
     font-family: var(--font-merriweather);
     background-color: #2A1810;
@@ -15,6 +21,9 @@
     touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
   }
 
   h1, h2, .font-fraktur {
@@ -81,6 +90,14 @@
 
 .animate-unfurl {
   animation: unfurlBanner 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollable panels (modals, endgame ledger) get contained, momentum touch scrolling
+   without letting the drag bubble into the locked app shell behind them */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 /* Scrollbar Customization */

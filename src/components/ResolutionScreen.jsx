@@ -77,28 +77,27 @@ export const ResolutionScreen = ({
       />
 
       {/* Center Table Layout */}
-      <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2 gap-9 sm:gap-11">
-        {/* Compact Round / Tricks Indicator */}
-        <div className="flex items-center gap-2 bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-full px-4 py-1.5 shadow-lg">
-          <span className="text-xs sm:text-sm font-bold font-cinzel text-[#F3E8D2]">
-            Round {currentRound}/{maxRounds}
-          </span>
-          <span className="w-px h-3.5 bg-[#D4AF37]/40" />
-          <span className={`text-xs sm:text-sm font-bold font-cinzel px-2 py-0.5 rounded-full ${
-            isValidRoundResolution
-              ? 'bg-emerald-900/90 text-emerald-200'
-              : 'bg-amber-950/80 text-amber-300'
-          }`}>
-            Tricks {totalActuals}/{currentRound}
-          </span>
-        </div>
-
+      <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2">
         <CircularTable
           players={players}
           bids={bids}
           actuals={actuals}
           onIncrement={incrementActual}
           onDecrement={decrementActual}
+          centerContent={
+            <div className="flex flex-col items-center gap-1 bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl px-3 py-2 shadow-xl">
+              <span className="text-[11px] sm:text-xs font-bold font-cinzel text-[#F3E8D2] whitespace-nowrap">
+                Round {currentRound}/{maxRounds}
+              </span>
+              <span className={`text-[11px] sm:text-xs font-bold font-cinzel px-2 py-0.5 rounded-full whitespace-nowrap ${
+                isValidRoundResolution
+                  ? 'bg-emerald-900/90 text-emerald-200'
+                  : 'bg-amber-950/80 text-amber-300'
+              }`}>
+                Tricks {totalActuals}/{currentRound}
+              </span>
+            </div>
+          }
         />
       </div>
 

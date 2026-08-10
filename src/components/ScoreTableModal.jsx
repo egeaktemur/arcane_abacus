@@ -39,7 +39,7 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
                 No rounds finalized yet.
               </p>
             ) : (
-              <div className="overflow-auto rounded-lg border border-[#3E2723]/20">
+              <div className="touch-scroll overflow-auto rounded-lg border border-[#3E2723]/20">
                 <table className="w-full text-sm border-collapse">
                   <thead className="sticky top-0 bg-[#3E2723] text-[#F3E8D2]">
                     <tr>

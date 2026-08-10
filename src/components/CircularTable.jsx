@@ -9,27 +9,35 @@ export const CircularTable = ({
   actuals = {},
   onIncrement,
   onDecrement,
+  centerContent,
 }) => {
   const playerCount = players.length;
 
   // Circle diameter shrinks as more players share the ring, to avoid overlap
   const circleSizeClasses =
     playerCount >= 6
-      ? 'w-24 h-24 sm:w-32 sm:h-32'
+      ? 'w-32 h-32 sm:w-40 sm:h-40'
       : playerCount === 5
-        ? 'w-28 h-28 sm:w-36 sm:h-36'
-        : 'w-36 h-36 sm:w-44 sm:h-44';
+        ? 'w-36 h-36 sm:w-44 sm:h-44'
+        : 'w-44 h-44 sm:w-52 sm:h-52';
 
   return (
-    <div className="relative w-full max-w-[480px] sm:max-w-[580px] aspect-square mx-auto flex items-center justify-center">
+    <div className="relative w-full max-w-[520px] sm:max-w-[620px] aspect-square mx-auto flex items-center justify-center">
+      {/* Center Content Slot (e.g. Round / Tricks Indicator) */}
+      {centerContent && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto">{centerContent}</div>
+        </div>
+      )}
+
       {/* Circular Player Buttons */}
       {players.map((player, index) => {
         // Trigonometry calculation
         const angleDeg = (index * (360 / playerCount)) - 90;
         const angleRad = (angleDeg * Math.PI) / 180;
 
-        // Radius for positioning
-        const radiusPercent = 38;
+        // Radius for positioning — pushed close to the outer edge
+        const radiusPercent = 42;
         const xPercent = radiusPercent * Math.cos(angleRad);
         const yPercent = radiusPercent * Math.sin(angleRad);
 
@@ -110,12 +118,12 @@ export const CircularTable = ({
                   aria-label={`Increment tricks won for ${player.name}`}
                 />
 
-                {/* Undo / Decrement, anchored on the circle's edge */}
+                {/* Undo / Decrement, anchored on the circle's left-middle edge */}
                 <button
                   type="button"
                   onClick={() => onDecrement(player.id)}
                   disabled={actual <= 0}
-                  className={`absolute -bottom-1.5 -left-1.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg z-30 transition-all ${
+                  className={`absolute top-1/2 -translate-y-1/2 -left-3 sm:-left-3.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg z-30 transition-all ${
                     actual <= 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 active:scale-95 text-red-300'
                   }`}
                   title="Undo / Decrement Trick"
@@ -123,11 +131,11 @@ export const CircularTable = ({
                   <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
 
-                {/* Increment, anchored on the circle's edge */}
+                {/* Increment, anchored on the circle's right-middle edge */}
                 <button
                   type="button"
                   onClick={() => onIncrement(player.id)}
-                  className="absolute -bottom-1.5 -right-1.5 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl z-30 hover:scale-110 active:scale-95 font-bold"
+                  className="absolute top-1/2 -translate-y-1/2 -right-3 sm:-right-3.5 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl z-30 hover:scale-110 active:scale-95 font-bold"
                   title="Tap to Add Won Trick"
                 >
                   <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
