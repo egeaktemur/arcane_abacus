@@ -36,6 +36,57 @@ export const calculateMaxRounds = (playerCount) => {
   return Math.floor(60 / playerCount);
 };
 
+/**
+ * Get starting player (lead/dealer shift) index for a round (0-indexed)
+ */
+export const getStartingPlayerIndex = (currentRound, playerCount) => {
+  if (!playerCount || playerCount === 0) return 0;
+  return (currentRound - 1) % playerCount;
+};
+
+/**
+ * Get sequence of player indices in bidding order for a round
+ */
+export const getBiddingOrder = (currentRound, playerCount) => {
+  const startIndex = getStartingPlayerIndex(currentRound, playerCount);
+  const order = [];
+  for (let i = 0; i < playerCount; i++) {
+    order.push((startIndex + i) % playerCount);
+  }
+  return order;
+};
+
+/**
+ * Calculate forbidden bid for the last bidder in the round
+ * Formula: sum(prior_bids) + last_bid != currentRound
+ * Therefore: last_bid != currentRound - sum(prior_bids)
+ */
+export const calculateForbiddenBid = (currentRound, bids, players, biddingOrder, stepIndex) => {
+  // Only the last player in the bidding order faces the restriction rule
+  if (stepIndex !== biddingOrder.length - 1) {
+    return null;
+  }
+
+  // Sum prior bids
+  let sumPrior = 0;
+  for (let i = 0; i < stepIndex; i++) {
+    const playerIdx = biddingOrder[i];
+    const playerId = players[playerIdx]?.id;
+    if (playerId !== undefined && bids[playerId] !== undefined) {
+      sumPrior += bids[playerId];
+    }
+  }
+
+  const forbidden = currentRound - sumPrior;
+
+  // Only forbidden if it falls within valid bid range [0, currentRound]
+  if (forbidden >= 0 && forbidden <= currentRound) {
+    return forbidden;
+  }
+
+  return null;
+};
+
 export const INITIAL_GAME_STATE = {
   gameState: GAME_STATES.SETUP,
   players: [
@@ -46,9 +97,10 @@ export const INITIAL_GAME_STATE = {
   ],
   playerCount: 4,
   currentRound: 1,
-  maxRounds: 15, // 60 / 4
+  maxRounds: 15,
   roundData: {
     startingPlayerIndex: 0,
+    currentBidStep: 0, // step index (0 to playerCount - 1) in bidding sequence
     bids: {},
     actuals: {},
   },

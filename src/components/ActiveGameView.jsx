@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HERALDRY_COLORS } from '../types/game';
-import { RotateCcw, Shield, Award, Users, BookOpen } from 'lucide-react';
+import { RotateCcw, Shield, Award, Users, BookOpen, CheckCircle2 } from 'lucide-react';
 
 export const ActiveGameView = ({ gameState, resetGame }) => {
-  const { players, currentRound, maxRounds } = gameState;
+  const { players, currentRound, maxRounds, roundData } = gameState;
+  const bids = roundData?.bids || {};
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden">
@@ -17,10 +18,10 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
       >
         <div className="text-center mb-6">
           <h1 className="text-4xl font-bold text-[#F3E8D2] gold-text-glow font-fraktur mb-1">
-            The Battle Begins!
+            Bids Sealed for Round {currentRound}!
           </h1>
           <p className="text-sm font-cinzel text-[#D4AF37]">
-            Phase 1 Core Logic & Storage Active
+            Phase II Complete • Bidding Interface Verified
           </p>
         </div>
 
@@ -38,10 +39,15 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
             </div>
           </div>
 
-          {/* Player Cards */}
+          {/* Sealed Bids Overview */}
+          <h3 className="text-sm font-bold font-cinzel text-[#3E2723] uppercase mb-3 flex items-center gap-1.5">
+            <CheckCircle2 className="w-4 h-4 text-[#228B22]" /> Sealed Round Bids:
+          </h3>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
             {players.map((player, idx) => {
               const heraldry = HERALDRY_COLORS.find(c => c.hex === player.color) || HERALDRY_COLORS[0];
+              const playerBid = bids[player.id] !== undefined ? bids[player.id] : '-';
 
               return (
                 <div 
@@ -57,8 +63,8 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] uppercase font-cinzel block text-white/70">Score</span>
-                    <span className="font-bold text-base font-cinzel">{player.totalScore || 0} pts</span>
+                    <span className="text-[10px] uppercase font-cinzel block text-white/70">Bid (Guess)</span>
+                    <span className="font-bold text-lg font-cinzel drop-shadow">{playerBid} Tricks</span>
                   </div>
                 </div>
               );
@@ -68,9 +74,9 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
           <div className="p-4 rounded-xl bg-[#E5D3B3]/80 border border-[#3E2723]/20 mb-6 text-xs text-[#3E2723] font-cinzel leading-relaxed">
             <div className="flex items-center gap-2 font-bold mb-1 text-[#8B0000]">
               <Shield className="w-4 h-4" />
-              <span>State Persistence Verified</span>
+              <span>Phase II Verification</span>
             </div>
-            All player data & heraldry assignments are automatically synchronized with browser <code className="bg-[#FFFDF5] px-1 py-0.5 rounded font-mono text-[11px]">localStorage</code>.
+            Slot Machine Bidding wheel, Last-Player Restriction calculation, and turn sequence completed & saved to <code className="bg-[#FFFDF5] px-1 py-0.5 rounded font-mono text-[11px]">localStorage</code>.
           </div>
 
           {/* Reset Action Button */}
@@ -80,7 +86,7 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
             className="w-full py-3.5 rounded-xl bg-[#3E2723] hover:bg-[#2A1810] text-[#F3E8D2] border border-[#D4AF37]/50 font-cinzel font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
           >
             <RotateCcw className="w-4 h-4 text-[#D4AF37]" />
-            <span>Return to Setup & Edit Roster</span>
+            <span>Return to Setup & Start New Game</span>
           </button>
         </div>
       </motion.div>

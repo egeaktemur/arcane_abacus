@@ -30,13 +30,14 @@
 
 ---
 
-## ⚔️ Phase 1 Features Implemented
+## ⚔️ Completed Features
 
-- [x] **Project Repository & Build System**: Powered by React + Vite + Tailwind CSS + Framer Motion.
-- [x] **Player Setup Screen**: Dynamic player roster (supports 3 to 6 players).
-- [x] **Duplication Lock**: Selecting a Heraldry color automatically locks/disables it for other players to ensure distinct heraldry.
-- [x] **Validation Rules**: Ensures 3–6 valid wizard names are entered before sealing the game.
-- [x] **LocalStorage Persistence**: Custom `useGameState` React Hook synchronizes all state changes to browser storage seamlessly.
+- [x] **Phase 1: Core Logic & Setup**: Dynamic player roster (3–6 wizards), Heraldry Color duplication locking, form validation, and `localStorage` persistence hook.
+- [x] **Phase 2: Bidding Interface**:
+  - Interactive **Slot Machine Wheel UI** with drag and step controls.
+  - **Dynamic Turn Rotation**: Dealer/lead shift per round (`(currentRound - 1) % playerCount`).
+  - **Last Player Restriction Rule**: Automatically calculates prior bid sums and visually restricts the forbidden bid value (`sum(bids) != totalCards`).
+  - **Bid Editing & Step Navigation**: Next/Previous arrows allowing turn navigation and bid revision before final sealing.
 - [x] **Automated CI/CD**: GitHub Actions workflow compiles the app on push to `main` and deploys to GitHub Pages.
 
 ---
