@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <div
-      className="app-container h-dvh box-border bg-[#2A1810] relative"
+      className="app-container h-dvh box-border medieval-bg relative"
       style={{
         paddingTop: 'env(safe-area-inset-top)',
         paddingBottom: 'env(safe-area-inset-bottom)',

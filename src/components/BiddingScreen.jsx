@@ -7,6 +7,7 @@ import {
 } from '../types/game';
 import { SlotMachineWheel } from './SlotMachineWheel';
 import { TerminateMatchModal } from './TerminateMatchModal';
+import { HeraldryIcon } from './HeraldryIcon';
 import {
   ChevronLeft,
   ChevronRight,
@@ -77,7 +78,7 @@ export const BiddingScreen = ({
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none">
+    <div className="h-full flex flex-col items-center justify-between p-4 sm:p-6 medieval-bg relative overflow-hidden select-none">
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info Banner */}
@@ -127,19 +128,19 @@ export const BiddingScreen = ({
         transition={{ duration: 0.3 }}
         className="w-full max-w-lg my-auto z-10"
       >
-        <div className="parchment-bg rounded-3xl p-5 sm:p-7 medieval-border shadow-2xl relative">
+        <div className="parchment-bg pattern-dragon rounded-3xl p-5 sm:p-7 medieval-border shadow-2xl relative">
           {/* Active Wizard Banner (Colored in Heraldry Color) */}
           <div 
             className="rounded-2xl p-4 mb-6 shadow-xl border-2 border-[#D4AF37]/70 flex items-center justify-between text-white relative overflow-hidden"
             style={{ backgroundColor: currentWizard.color }}
           >
             {/* Background Glow */}
-            <div className="absolute -right-6 -bottom-6 opacity-20 text-6xl">
-              {wizardColor.icon}
+            <div className="absolute -right-6 -bottom-6 opacity-20">
+              <HeraldryIcon id={wizardColor.id} color="#FFFFFF" size={96} bare />
             </div>
 
             <div className="flex items-center gap-3 z-10">
-              <span className="text-3xl sm:text-4xl drop-shadow-md">{wizardColor.icon}</span>
+              <HeraldryIcon id={wizardColor.id} color={wizardColor.hex} size={44} />
               <div>
                 <div className="flex items-center gap-1.5">
                   <h2 className="text-xl sm:text-2xl font-bold font-cinzel drop-shadow-md">
@@ -194,7 +195,7 @@ export const BiddingScreen = ({
                   : 'bg-gradient-to-r from-[#8B0000] via-[#5C0A0A] to-[#8B0000] text-[#F3E8D2] hover:brightness-110 active:scale-[0.98] border border-[#D4AF37]/60'
               }`}
             >
-              <span>{isLastBidder ? 'Seal All Bids' : 'Confirm & Next'}</span>
+              <span>{isLastBidder ? 'Seal All Bids' : 'Confirm'}</span>
               {isLastBidder ? (
                 <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
               ) : (

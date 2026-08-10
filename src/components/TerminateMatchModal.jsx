@@ -18,7 +18,7 @@ export const TerminateMatchModal = ({ isOpen, onCancel, onConfirm }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
             onClick={(e) => e.stopPropagation()}
-            className="parchment-bg rounded-2xl p-6 medieval-border shadow-2xl max-w-sm w-full text-center"
+            className="parchment-bg pattern-bear rounded-2xl p-6 medieval-border shadow-2xl max-w-sm w-full text-center"
           >
             <ShieldAlert className="w-10 h-10 text-[#8B0000] mx-auto mb-3" />
             <h2 className="text-xl font-bold font-cinzel text-[#2C1810] mb-2">

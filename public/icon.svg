@@ -2,5 +2,22 @@
   <rect width="512" height="512" rx="128" fill="#3E2723"/>
   <circle cx="256" cy="256" r="210" fill="#2A1810" stroke="#D4AF37" stroke-width="12"/>
   <circle cx="256" cy="256" r="170" fill="#F3E8D2" stroke="#8B0000" stroke-width="8"/>
-  <text x="256" y="320" font-size="200" text-anchor="middle" font-family="serif" fill="#D4AF37">🔮</text>
+
+  <!-- Wizard hat -->
+  <ellipse cx="256" cy="348" rx="122" ry="27" fill="#4B0082" stroke="#D4AF37" stroke-width="8"/>
+  <path d="M 188,340
+           Q 206,232 234,158
+           Q 254,106 277,74
+           Q 285,63 293,72
+           Q 300,81 293,98
+           Q 278,136 288,150
+           Q 298,164 292,178
+           Q 300,240 320,340
+           Z"
+        fill="#4B0082" stroke="#D4AF37" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 204,290 C 236,272 276,272 306,288 L 300,318 C 268,304 236,304 210,318 Z"
+        fill="#D4AF37"/>
+  <path d="M 283,90 l 7,15 16,6 -16,6 -7,16 -7,-16 -16,-6 16,-6 Z" fill="#D4AF37"/>
+  <circle cx="230" cy="198" r="6" fill="#D4AF37"/>
+  <circle cx="248" cy="250" r="4.5" fill="#D4AF37"/>
 </svg>

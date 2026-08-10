@@ -4,12 +4,12 @@
  */
 
 export const HERALDRY_COLORS = [
-  { id: 'crimson', name: 'Crimson Red', hex: '#8B0000', icon: '🩸', border: '#D32F2F' },
-  { id: 'forest', name: 'Forest Green', hex: '#228B22', icon: '🌲', border: '#388E3C' },
-  { id: 'sapphire', name: 'Royal Sapphire', hex: '#0F52BA', icon: '🛡️', border: '#1976D2' },
-  { id: 'gold', name: 'Imperial Gold', hex: '#D4AF37', icon: '👑', border: '#FBC02D' },
-  { id: 'amethyst', name: 'Amethyst Purple', hex: '#4B0082', icon: '🔮', border: '#7B1FA2' },
-  { id: 'copper', name: 'Copper Rust', hex: '#B7410E', icon: '⚔️', border: '#E65100' },
+  { id: 'crimson', name: 'Crimson Red', hex: '#7A1F1F', icon: '🩸', border: '#9C3B3B' },
+  { id: 'forest', name: 'Forest Green', hex: '#355E3B', icon: '🌲', border: '#4C7A52' },
+  { id: 'sapphire', name: 'Royal Sapphire', hex: '#1F3A5F', icon: '🛡️', border: '#3A5A80' },
+  { id: 'gold', name: 'Imperial Gold', hex: '#A9812E', icon: '👑', border: '#C7A250' },
+  { id: 'amethyst', name: 'Amethyst Purple', hex: '#3F2352', icon: '🔮', border: '#5C3F70' },
+  { id: 'copper', name: 'Copper Rust', hex: '#8B4A20', icon: '⚔️', border: '#A6612F' },
 ];
 
 export const GAME_STATES = {
@@ -20,12 +20,12 @@ export const GAME_STATES = {
 };
 
 export const DEFAULT_PLAYER_PRESETS = [
-  { name: 'Gandalf', color: '#8B0000' },
-  { name: 'Saruman', color: '#228B22' },
-  { name: 'Radagast', color: '#0F52BA' },
-  { name: 'Alatar', color: '#D4AF37' },
-  { name: 'Pallando', color: '#4B0082' },
-  { name: 'Olórin', color: '#B7410E' },
+  { name: 'Gandalf', color: '#7A1F1F' },
+  { name: 'Saruman', color: '#355E3B' },
+  { name: 'Radagast', color: '#1F3A5F' },
+  { name: 'Alatar', color: '#A9812E' },
+  { name: 'Pallando', color: '#3F2352' },
+  { name: 'Olórin', color: '#8B4A20' },
 ];
 
 /**
@@ -103,10 +103,10 @@ export const calculateRoundScore = (bid, actual) => {
 export const INITIAL_GAME_STATE = {
   gameState: GAME_STATES.SETUP,
   players: [
-    { id: 'p1', name: 'Gandalf', color: '#8B0000', totalScore: 0 },
-    { id: 'p2', name: 'Saruman', color: '#228B22', totalScore: 0 },
-    { id: 'p3', name: 'Radagast', color: '#0F52BA', totalScore: 0 },
-    { id: 'p4', name: 'Alatar', color: '#D4AF37', totalScore: 0 },
+    { id: 'p1', name: 'Gandalf', color: '#7A1F1F', totalScore: 0 },
+    { id: 'p2', name: 'Saruman', color: '#355E3B', totalScore: 0 },
+    { id: 'p3', name: 'Radagast', color: '#1F3A5F', totalScore: 0 },
+    { id: 'p4', name: 'Alatar', color: '#A9812E', totalScore: 0 },
   ],
   playerCount: 4,
   currentRound: 1,

@@ -2,13 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { HERALDRY_COLORS } from '../types/game';
 import { RotateCcw, Shield, Award, Users, BookOpen, CheckCircle2 } from 'lucide-react';
+import { HeraldryIcon } from './HeraldryIcon';
 
 export const ActiveGameView = ({ gameState, resetGame }) => {
   const { players, currentRound, maxRounds, roundData } = gameState;
   const bids = roundData?.bids || {};
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 medieval-bg relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       <motion.div 
@@ -25,7 +26,7 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
           </p>
         </div>
 
-        <div className="parchment-bg rounded-2xl p-6 sm:p-8 medieval-border shadow-2xl relative">
+        <div className="parchment-bg pattern-griffin rounded-2xl p-6 sm:p-8 medieval-border shadow-2xl relative">
           <div className="flex items-center justify-between border-b-2 border-[#3E2723]/30 pb-4 mb-6">
             <div className="flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-[#8B0000]" />
@@ -56,7 +57,7 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
                   style={{ backgroundColor: player.color }}
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xl">{heraldry.icon}</span>
+                    <HeraldryIcon id={heraldry.id} color={player.color} size={28} />
                     <div>
                       <h3 className="font-bold text-sm leading-tight drop-shadow">{player.name}</h3>
                       <span className="text-[10px] uppercase font-cinzel text-white/80">{heraldry.name}</span>

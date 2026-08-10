@@ -16,6 +16,7 @@ import {
   Award,
   ShieldAlert
 } from 'lucide-react';
+import { HeraldryIcon } from './HeraldryIcon';
 
 export const EndgameScreen = ({ gameState, resetGame }) => {
   const { players = [], history = [] } = gameState;
@@ -105,7 +106,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
   const isAllRevealed = revealedCount >= totalCount;
 
   return (
-    <div className={`h-full flex flex-col items-center justify-between p-4 sm:p-6 bg-[#2A1810] relative overflow-hidden select-none ${
+    <div className={`h-full flex flex-col items-center justify-between p-4 sm:p-6 medieval-bg relative overflow-hidden select-none ${
       screenShaking ? 'animate-shake' : ''
     }`}>
       {/* Dark Ambient Background with Gold Particles */}
@@ -236,10 +237,11 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                               </span>
                             )}
                           </div>
-                          <span className={`text-xs font-cinzel uppercase block ${
+                          <span className={`text-xs font-cinzel uppercase flex items-center gap-1 ${
                             isWinner ? 'text-[#2C1810]/80' : 'text-white/80'
                           }`}>
-                            {heraldry.icon} {heraldry.name}
+                            <HeraldryIcon id={heraldry.id} color={player.color} size={16} />
+                            {heraldry.name}
                           </span>
                         </div>
                       </div>
@@ -289,7 +291,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="touch-scroll mt-3 parchment-bg rounded-xl p-4 border border-[#3E2723]/30 overflow-x-auto max-h-60 shadow-inner"
+                className="touch-scroll mt-3 parchment-bg pattern-stag rounded-xl p-4 border border-[#3E2723]/30 overflow-x-auto max-h-60 shadow-inner"
               >
                 <table className="w-full text-xs font-cinzel text-[#2C1810]">
                   <thead>
