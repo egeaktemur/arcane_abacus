@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { CircularTable } from './CircularTable';
 import { TerminateMatchModal } from './TerminateMatchModal';
 import { ScoreTableModal } from './ScoreTableModal';
-import { Scroll, CheckCircle2, XCircle, Table2 } from 'lucide-react';
+import { Scroll, CheckCircle2, AlertCircle, XCircle, Table2 } from 'lucide-react';
 
 export const ResolutionScreen = ({
   gameState,
@@ -24,7 +24,7 @@ export const ResolutionScreen = ({
   const isValidRoundResolution = totalActuals === currentRound;
 
   return (
-    <div className="h-full flex flex-col items-center justify-between p-3 sm:p-5 bg-[#2A1810] relative overflow-hidden select-none">
+    <div className="h-full flex flex-col items-center justify-between p-3 sm:p-5 medieval-bg relative overflow-hidden select-none">
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info */}
@@ -85,17 +85,29 @@ export const ResolutionScreen = ({
           onIncrement={incrementActual}
           onDecrement={decrementActual}
           centerContent={
-            <div className="flex flex-col items-center gap-1 bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl px-3 py-2 shadow-xl">
-              <span className="text-[11px] sm:text-xs font-bold font-cinzel text-[#F3E8D2] whitespace-nowrap">
-                Round {currentRound}/{maxRounds}
-              </span>
-              <span className={`text-[11px] sm:text-xs font-bold font-cinzel px-2 py-0.5 rounded-full whitespace-nowrap ${
-                isValidRoundResolution
-                  ? 'bg-emerald-900/90 text-emerald-200'
-                  : 'bg-amber-950/80 text-amber-300'
-              }`}>
-                Tricks {totalActuals}/{currentRound}
-              </span>
+            <div className="flex items-center justify-center">
+              {/* Round progress medallion: conic ring fills as rounds pass, tricks-entered count sits inside */}
+              <div
+                className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full p-[3px] shadow-xl"
+                style={{
+                  background: `conic-gradient(#D4AF37 ${(currentRound / maxRounds) * 360}deg, rgba(212,175,55,0.18) 0deg)`,
+                }}
+              >
+                <div className={`w-full h-full rounded-full bg-[#3E2723] border flex flex-col items-center justify-center gap-0.5 ${
+                  isValidRoundResolution ? 'border-emerald-400/50' : 'border-amber-500/40'
+                }`}>
+                  {isValidRoundResolution ? (
+                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-300 shrink-0" />
+                  ) : (
+                    <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
+                  )}
+                  <span className={`text-base sm:text-lg font-black font-cinzel leading-none ${
+                    isValidRoundResolution ? 'text-emerald-200' : 'text-amber-300'
+                  }`}>
+                    {totalActuals}/{currentRound}
+                  </span>
+                </div>
+              </div>
             </div>
           }
         />
@@ -118,7 +130,7 @@ export const ResolutionScreen = ({
           }`}
         >
           <CheckCircle2 className={`w-6 h-6 ${isValidRoundResolution ? 'text-[#D4AF37]' : 'text-gray-500'}`} />
-          <span>{currentRound === maxRounds ? 'Finalize & Reveal Endgame' : 'Finalize Round & Score'}</span>
+          <span>{currentRound === maxRounds ? 'Finalize & Reveal Endgame' : 'Finalize Round'}</span>
         </button>
       </motion.div>
     </div>

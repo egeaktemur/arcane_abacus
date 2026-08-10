@@ -16,7 +16,7 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
   const isFormValid = isValidCount && !emptyNames;
 
   return (
-    <div className="h-full flex flex-col items-center justify-center p-3 sm:p-6 bg-[#2A1810] relative overflow-hidden">
+    <div className="h-full flex flex-col items-center justify-center p-3 sm:p-6 medieval-bg relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
@@ -34,9 +34,12 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
         </div>
 
         {/* Main Parchment Card */}
-        <div className="parchment-bg rounded-2xl p-3 sm:p-5 medieval-border relative shadow-2xl flex-1 min-h-0 flex flex-col">
-          {/* Player Input List */}
-          <div className="flex-1 min-h-0 flex flex-col gap-1.5 sm:gap-2 justify-center">
+        <div className="parchment-bg pattern-lion rounded-2xl p-3 sm:p-5 medieval-border relative shadow-2xl flex-1 min-h-0 flex flex-col">
+          {/* Player Input List: 6 fixed-height slots (card-height / 6) so rows never resize as players are added/removed */}
+          <div
+            className="flex-1 min-h-0 grid gap-1.5 sm:gap-2"
+            style={{ gridTemplateRows: 'repeat(6, minmax(0, 1fr))' }}
+          >
             <AnimatePresence>
               {players.map((player, index) => {
                 return (
@@ -46,11 +49,11 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.3 }}
-                    className="px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-[#E5D3B3]/60 border border-[#3E2723]/20 shadow-sm flex flex-col gap-2"
+                    className="min-h-0 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#E5D3B3]/60 border border-[#3E2723]/20 shadow-sm flex flex-col justify-center gap-1.5"
                   >
                     {/* Row 1: index, name, delete */}
                     <div className="flex items-center gap-2.5">
-                      <span className="w-8 h-8 shrink-0 rounded-full bg-[#3E2723] text-[#F3E8D2] text-sm flex items-center justify-center font-bold font-cinzel shadow-inner">
+                      <span className="w-7 h-7 shrink-0 rounded-full bg-[#3E2723] text-[#F3E8D2] text-sm flex items-center justify-center font-bold font-cinzel shadow-inner">
                         {index + 1}
                       </span>
 
@@ -61,10 +64,10 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
                           onChange={(e) => updatePlayer(index, 'name', e.target.value)}
                           placeholder="Wizard Name..."
                           maxLength={16}
-                          className="w-full px-3 py-2 rounded-lg bg-[#FFFDF5] border border-[#3E2723]/40 text-[#2C1810] font-semibold text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent placeholder-[#3E2723]/40 shadow-inner"
+                          className="w-full px-3 py-1.5 rounded-lg bg-[#FFFDF5] border border-[#3E2723]/40 text-[#2C1810] font-semibold text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent placeholder-[#3E2723]/40 shadow-inner"
                         />
                         {!player.name.trim() && (
-                          <AlertCircle className="w-4 h-4 text-[#8B0000] absolute right-3 top-2.5" />
+                          <AlertCircle className="w-4 h-4 text-[#8B0000] absolute right-3 top-2" />
                         )}
                       </div>
 
@@ -81,7 +84,7 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
                     </div>
 
                     {/* Row 2: color swatches (Duplication Lock Enforced) */}
-                    <div className="flex items-center gap-2 pl-[42px]">
+                    <div className="flex items-center gap-2 pl-[38px]">
                       {HERALDRY_COLORS.map(colorOption => {
                         const isSelected = player.color === colorOption.hex;
                         const isTakenByOther = selectedColorHexes.has(colorOption.hex) && !isSelected;
@@ -93,7 +96,7 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
                             disabled={isTakenByOther}
                             onClick={() => updatePlayer(index, 'color', colorOption.hex)}
                             title={isTakenByOther ? `${colorOption.name} (Claimed)` : colorOption.name}
-                            className={`flex-1 h-8 sm:h-9 rounded-lg flex items-center justify-center transition-all relative border ${
+                            className={`flex-1 h-7 sm:h-8 rounded-lg flex items-center justify-center transition-all relative border ${
                               isSelected
                                 ? 'ring-2 ring-[#2C1810] ring-offset-1 scale-105 shadow-md border-white/60'
                                 : isTakenByOther
@@ -113,19 +116,19 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
                 );
               })}
             </AnimatePresence>
-
-            {/* Add Player Control */}
-            {playerCount < 6 && (
-              <button
-                type="button"
-                onClick={addPlayer}
-                className="w-full py-2 rounded-xl border-2 border-dashed border-[#3E2723]/40 hover:border-[#8B0000] bg-[#FFFDF5]/40 hover:bg-[#FFFDF5] text-[#3E2723] hover:text-[#8B0000] font-cinzel font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Wizard ({playerCount}/6)</span>
-              </button>
-            )}
           </div>
+
+          {/* Add Player Control */}
+          {playerCount < 6 && (
+            <button
+              type="button"
+              onClick={addPlayer}
+              className="mt-2 w-full py-2 rounded-xl border-2 border-dashed border-[#3E2723]/40 hover:border-[#8B0000] bg-[#FFFDF5]/40 hover:bg-[#FFFDF5] text-[#3E2723] hover:text-[#8B0000] font-cinzel font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm shrink-0"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add Wizard ({playerCount}/6)</span>
+            </button>
+          )}
 
           {/* Validation Notice */}
           {!isFormValid && (
@@ -155,6 +158,10 @@ export const SetupScreen = ({ gameState, updatePlayer, addPlayer, removePlayer, 
           </button>
         </div>
       </motion.div>
+
+      <p className="mt-2 text-center text-[9px] text-[#F3E8D2]/30 z-10">
+        Heraldic icons by Lorc &amp; Delapouite, game-icons.net (CC BY 3.0)
+      </p>
     </div>
   );
 };

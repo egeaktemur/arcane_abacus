@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HERALDRY_COLORS, calculateRoundScore } from '../types/game';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Target, Trophy, Coins } from 'lucide-react';
+import { HeraldryIcon } from './HeraldryIcon';
 
 export const CircularTable = ({
   players,
@@ -75,7 +76,7 @@ export const CircularTable = ({
                 initial={{ scale: 0, rotate: rotationDeg }}
                 animate={{ scale: 1, rotate: rotationDeg }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
-                className={`w-full h-full rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-3 flex flex-col items-center justify-between text-white relative transition-all duration-300 ${
+                className={`w-full h-full rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-3 flex flex-col items-center justify-center gap-1.5 text-white relative transition-all duration-300 ${
                   isCurrentlyExact ? 'ring-4 ring-emerald-500/90 shadow-[0_0_30px_rgba(34,139,34,0.7)]' : ''
                 }`}
                 style={{
@@ -83,34 +84,32 @@ export const CircularTable = ({
                 }}
               >
                 {/* Header: Name */}
-                <div className="text-center w-full truncate px-1">
-                  <span className="text-sm sm:text-base font-extrabold font-cinzel truncate drop-shadow-md">
+                <div className="text-center w-full truncate px-1 -mt-1.5 sm:-mt-2.5">
+                  <span className="text-xl sm:text-3xl font-extrabold font-cinzel truncate drop-shadow-md">
                     {player.name}
                   </span>
                 </div>
 
-                {/* Center Stats Display: Bid vs Actual */}
-                <div className="flex items-center justify-center gap-3 bg-black/40 w-full py-1.5 sm:py-2 rounded-xl border border-white/30 shadow-inner">
-                  <div className="text-center">
-                    <span className="text-[10px] sm:text-xs uppercase font-cinzel text-white/80 block leading-tight font-semibold">Bid</span>
-                    <span className="text-base sm:text-lg font-black font-cinzel text-[#D4AF37]">{bid}</span>
+                {/* Stats Row: Bid, Actual, Points together */}
+                <div className="flex items-center justify-center gap-2.5 bg-black/40 w-full py-1.5 sm:py-2 rounded-xl border border-white/30 shadow-inner">
+                  <div className="flex flex-col items-center gap-0.5" title="Bid">
+                    <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/80" />
+                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-[#D4AF37] leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums">{bid}</span>
                   </div>
-                  <div className="h-6 w-[1.5px] bg-white/30" />
-                  <div className="text-center">
-                    <span className="text-[10px] sm:text-xs uppercase font-cinzel text-white/80 block leading-tight font-semibold">Actual</span>
-                    <span className="text-lg sm:text-xl font-black font-cinzel text-white">{actual}</span>
+                  <div className="h-7 w-[1.5px] bg-white/30" />
+                  <div className="flex flex-col items-center gap-0.5" title="Actual">
+                    <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/80" />
+                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-white leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums">{actual}</span>
                   </div>
-                </div>
-
-                {/* Footer: Potential Score Indicator */}
-                <div className="text-center">
-                  <span className={`text-xs sm:text-sm font-extrabold font-cinzel px-2.5 py-0.5 rounded-full shadow ${
-                    isCurrentlyExact 
-                      ? 'bg-emerald-900/95 text-emerald-200 border border-emerald-400/50' 
-                      : 'bg-red-950/90 text-red-200 border border-red-500/50'
-                  }`}>
-                    {currentScoreDelta >= 0 ? `+${currentScoreDelta} pts` : `${currentScoreDelta} pts`}
-                  </span>
+                  <div className="h-7 w-[1.5px] bg-white/30" />
+                  <div className="flex flex-col items-center gap-0.5" title="Points">
+                    <Coins className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isCurrentlyExact ? 'text-emerald-300' : 'text-red-300'}`} />
+                    <span className={`text-2xl sm:text-3xl font-black font-cinzel leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums ${
+                      isCurrentlyExact ? 'text-emerald-300' : 'text-red-300'
+                    }`}>
+                      {currentScoreDelta >= 0 ? `+${currentScoreDelta}` : currentScoreDelta}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Tap to Increment Main Area Overlay */}
@@ -147,12 +146,12 @@ export const CircularTable = ({
                 </button>
 
                 {/* Heraldry Icon, between the two controls — matches the card's own outward-facing orientation */}
-                <span
-                  className="text-3xl sm:text-4xl leading-none shrink-0"
+                <HeraldryIcon
+                  id={heraldry.id}
+                  color={player.color}
+                  size={40}
                   style={{ transform: `rotate(${rotationDeg - tangentDeg}deg)` }}
-                >
-                  {heraldry.icon}
-                </span>
+                />
 
                 <button
                   type="button"
