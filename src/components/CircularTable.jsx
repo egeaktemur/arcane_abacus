@@ -22,6 +22,13 @@ export const CircularTable = ({
         ? 'w-36 h-36 sm:w-44 sm:h-44'
         : 'w-44 h-44 sm:w-52 sm:h-52';
 
+  // +/- controls hug the heraldry icon tighter as more players share the ring,
+  // so the tangential control group doesn't collide with a neighboring seat's controls
+  const controlsGapClass = playerCount >= 6 ? 'gap-0' : playerCount >= 4 ? 'gap-0.5' : 'gap-1.5';
+  const controlButtonSizeClasses = playerCount >= 4 ? 'w-6 h-6 sm:w-7 sm:h-7' : 'w-7 h-7 sm:w-8 sm:h-8';
+  const incrementButtonSizeClasses = playerCount >= 4 ? 'w-7 h-7 sm:w-8 sm:h-8' : 'w-8 h-8 sm:w-9 sm:h-9';
+  const heraldrySize = playerCount >= 4 ? 32 : 40;
+
   return (
     <div className="relative w-full max-w-[520px] sm:max-w-[620px] aspect-square mx-auto flex items-center justify-center">
       {/* Center Content Slot (e.g. Round / Tricks Indicator) */}
@@ -63,7 +70,7 @@ export const CircularTable = ({
         return (
           <div
             key={player.id || index}
-            className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 z-20 ${circleSizeClasses}`}
+            className={`absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 z-20 pointer-events-none ${circleSizeClasses}`}
             style={{
               left: `calc(50% + ${xPercent}%)`,
               top: `calc(50% + ${yPercent}%)`,
@@ -76,7 +83,7 @@ export const CircularTable = ({
                 initial={{ scale: 0, rotate: rotationDeg }}
                 animate={{ scale: 1, rotate: rotationDeg }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
-                className={`w-full h-full rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-3 flex flex-col items-center justify-center gap-1.5 text-white relative transition-all duration-300 ${
+                className={`w-full h-full rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-2 sm:p-2.5 flex flex-col items-center justify-center gap-1 text-white relative transition-all duration-300 ${
                   isCurrentlyExact ? 'ring-4 ring-emerald-500/90 shadow-[0_0_30px_rgba(34,139,34,0.7)]' : ''
                 }`}
                 style={{
@@ -91,20 +98,20 @@ export const CircularTable = ({
                 </div>
 
                 {/* Stats Row: Bid, Actual, Points together */}
-                <div className="flex items-center justify-center gap-2.5 bg-black/40 w-full py-1.5 sm:py-2 rounded-xl border border-white/30 shadow-inner">
-                  <div className="flex flex-col items-center gap-0.5" title="Bid">
-                    <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/80" />
-                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-[#D4AF37] leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums">{bid}</span>
+                <div className="flex items-center justify-center gap-1 sm:gap-2 bg-black/40 w-full px-0.5 py-1 sm:py-1.5 rounded-xl border border-white/30 shadow-inner overflow-hidden">
+                  <div className="flex flex-col items-center gap-0.5 min-w-0" title="Bid">
+                    <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF37]/80 shrink-0" />
+                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-[#D4AF37] leading-none text-center tabular-nums">{bid}</span>
                   </div>
-                  <div className="h-7 w-[1.5px] bg-white/30" />
-                  <div className="flex flex-col items-center gap-0.5" title="Actual">
-                    <Trophy className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/80" />
-                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-white leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums">{actual}</span>
+                  <div className="h-6 sm:h-7 w-[1.5px] bg-white/30 shrink-0" />
+                  <div className="flex flex-col items-center gap-0.5 min-w-0" title="Actual">
+                    <Trophy className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/80 shrink-0" />
+                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-white leading-none text-center tabular-nums">{actual}</span>
                   </div>
-                  <div className="h-7 w-[1.5px] bg-white/30" />
-                  <div className="flex flex-col items-center gap-0.5" title="Points">
-                    <Coins className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isCurrentlyExact ? 'text-emerald-300' : 'text-red-300'}`} />
-                    <span className={`text-2xl sm:text-3xl font-black font-cinzel leading-none min-w-[1.4em] sm:min-w-[1.6em] text-center tabular-nums ${
+                  <div className="h-6 sm:h-7 w-[1.5px] bg-white/30 shrink-0" />
+                  <div className="flex flex-col items-center gap-0.5 min-w-0" title="Points">
+                    <Coins className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${isCurrentlyExact ? 'text-emerald-300' : 'text-red-300'}`} />
+                    <span className={`text-2xl sm:text-3xl font-black font-cinzel leading-none text-center tabular-nums ${
                       isCurrentlyExact ? 'text-emerald-300' : 'text-red-300'
                     }`}>
                       {currentScoreDelta >= 0 ? `+${currentScoreDelta}` : currentScoreDelta}
@@ -116,14 +123,15 @@ export const CircularTable = ({
                 <button
                   type="button"
                   onClick={() => onIncrement(player.id)}
-                  className="absolute inset-0 rounded-full cursor-pointer opacity-0 hover:opacity-10 active:opacity-25 bg-white transition-opacity"
+                  className="absolute inset-0 rounded-full cursor-pointer opacity-0 hover:opacity-10 active:opacity-25 bg-white transition-opacity pointer-events-auto"
+                  style={{ clipPath: 'circle(50%)' }}
                   aria-label={`Increment tricks won for ${player.name}`}
                 />
               </motion.div>
 
               {/* +/- controls, anchored on the circle's edge facing the table center, orthogonal to the radius */}
               <div
-                className="absolute flex items-center gap-1.5 z-30"
+                className={`absolute flex items-center ${controlsGapClass} z-30`}
                 style={{
                   left: `${innerX}%`,
                   top: `${innerY}%`,
@@ -132,15 +140,13 @@ export const CircularTable = ({
               >
                 <button
                   type="button"
-                  onClick={() => onDecrement(player.id)}
-                  disabled={actual <= 0}
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg transition-all shrink-0 ${
-                    actual <= 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 active:scale-95 text-red-300'
-                  }`}
-                  title="Undo / Decrement Trick"
+                  onClick={() => onIncrement(player.id)}
+                  className={`${incrementButtonSizeClasses} rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold shrink-0 pointer-events-auto`}
+                  style={{ clipPath: 'circle(50%)' }}
+                  title="Tap to Add Won Trick"
                 >
-                  <Minus
-                    className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                  <Plus
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]"
                     style={{ transform: `rotate(${-tangentDeg}deg)` }}
                   />
                 </button>
@@ -149,18 +155,22 @@ export const CircularTable = ({
                 <HeraldryIcon
                   id={heraldry.id}
                   color={player.color}
-                  size={40}
+                  size={heraldrySize}
                   style={{ transform: `rotate(${rotationDeg - tangentDeg}deg)` }}
                 />
 
                 <button
                   type="button"
-                  onClick={() => onIncrement(player.id)}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold shrink-0"
-                  title="Tap to Add Won Trick"
+                  onClick={() => onDecrement(player.id)}
+                  disabled={actual <= 0}
+                  className={`${controlButtonSizeClasses} rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg transition-all shrink-0 pointer-events-auto ${
+                    actual <= 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 active:scale-95 text-red-300'
+                  }`}
+                  style={{ clipPath: 'circle(50%)' }}
+                  title="Undo / Decrement Trick"
                 >
-                  <Plus
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]"
+                  <Minus
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                     style={{ transform: `rotate(${-tangentDeg}deg)` }}
                   />
                 </button>
