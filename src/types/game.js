@@ -20,12 +20,12 @@ export const GAME_STATES = {
 };
 
 export const DEFAULT_PLAYER_PRESETS = [
-  { name: 'Heinrich', color: '#8B0000' },
-  { name: 'Hildegard', color: '#228B22' },
-  { name: 'Siegfried', color: '#0F52BA' },
-  { name: 'Brunhild', color: '#D4AF37' },
-  { name: 'Gottfried', color: '#4B0082' },
-  { name: 'Walburga', color: '#B7410E' },
+  { name: 'Gandalf', color: '#8B0000' },
+  { name: 'Saruman', color: '#228B22' },
+  { name: 'Radagast', color: '#0F52BA' },
+  { name: 'Alatar', color: '#D4AF37' },
+  { name: 'Pallando', color: '#4B0082' },
+  { name: 'Olórin', color: '#B7410E' },
 ];
 
 /**
@@ -103,10 +103,10 @@ export const calculateRoundScore = (bid, actual) => {
 export const INITIAL_GAME_STATE = {
   gameState: GAME_STATES.SETUP,
   players: [
-    { id: 'p1', name: 'Heinrich', color: '#8B0000', totalScore: 0 },
-    { id: 'p2', name: 'Hildegard', color: '#228B22', totalScore: 0 },
-    { id: 'p3', name: 'Siegfried', color: '#0F52BA', totalScore: 0 },
-    { id: 'p4', name: 'Brunhild', color: '#D4AF37', totalScore: 0 },
+    { id: 'p1', name: 'Gandalf', color: '#8B0000', totalScore: 0 },
+    { id: 'p2', name: 'Saruman', color: '#228B22', totalScore: 0 },
+    { id: 'p3', name: 'Radagast', color: '#0F52BA', totalScore: 0 },
+    { id: 'p4', name: 'Alatar', color: '#D4AF37', totalScore: 0 },
   ],
   playerCount: 4,
   currentRound: 1,

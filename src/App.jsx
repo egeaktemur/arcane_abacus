@@ -47,6 +47,7 @@ export default function App() {
           prevBidder={prevBidder}
           setBidStep={setBidStep}
           finalizeBids={finalizeBids}
+          resetGame={resetGame}
         />
       )}
 
@@ -56,6 +57,7 @@ export default function App() {
           incrementActual={incrementActual}
           decrementActual={decrementActual}
           finalizeRound={finalizeRound}
+          resetGame={resetGame}
         />
       )}
 

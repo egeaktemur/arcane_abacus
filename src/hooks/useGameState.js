@@ -59,7 +59,7 @@ export const useGameState = () => {
       const availableColor = HERALDRY_COLORS.find(c => !usedColors.has(c.hex)) || HERALDRY_COLORS[0];
       
       const newId = `p${Date.now()}`;
-      const defaultNames = ['Gottfried', 'Walburga', 'Roland', 'Kriemhild', 'Parzival'];
+      const defaultNames = ['Gandalf', 'Saruman', 'Radagast', 'Alatar', 'Pallando', 'Olórin'];
       const nextName = defaultNames[prev.players.length] || `Wizard ${prev.players.length + 1}`;
 
       const newPlayers = [

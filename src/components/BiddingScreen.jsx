@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  HERALDRY_COLORS, 
-  getBiddingOrder, 
-  calculateForbiddenBid 
+import {
+  HERALDRY_COLORS,
+  getBiddingOrder,
+  calculateForbiddenBid
 } from '../types/game';
 import { SlotMachineWheel } from './SlotMachineWheel';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Crown, 
-  Scroll, 
+import { TerminateMatchModal } from './TerminateMatchModal';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Crown,
+  Scroll,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  XCircle
 } from 'lucide-react';
 
 export const BiddingScreen = ({
@@ -22,7 +24,9 @@ export const BiddingScreen = ({
   prevBidder,
   setBidStep,
   finalizeBids,
+  resetGame,
 }) => {
+  const [showTerminateModal, setShowTerminateModal] = useState(false);
   const { players, currentRound, maxRounds, roundData } = gameState;
   const playerCount = players.length;
   const { currentBidStep = 0, bids = {} } = roundData;
@@ -104,14 +108,33 @@ export const BiddingScreen = ({
             </span>
           </div>
 
-          <div className="text-right">
-            <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Bidding Step</span>
-            <span className="text-sm font-bold font-cinzel text-[#F3E8D2]">
-              {currentBidStep + 1} of {playerCount}
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Bidding Step</span>
+              <span className="text-sm font-bold font-cinzel text-[#F3E8D2]">
+                {currentBidStep + 1} of {playerCount}
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowTerminateModal(true)}
+              title="Terminate Match"
+              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#8B0000]/40 transition-all active:scale-95 shrink-0"
+            >
+              <XCircle className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </motion.div>
+
+      <TerminateMatchModal
+        isOpen={showTerminateModal}
+        onCancel={() => setShowTerminateModal(false)}
+        onConfirm={() => {
+          setShowTerminateModal(false);
+          resetGame();
+        }}
+      />
 
       {/* Main Bidding Card */}
       <motion.div 

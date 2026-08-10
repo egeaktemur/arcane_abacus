@@ -28,22 +28,6 @@
   5. 🔮 **Amethyst Purple** (`#4B0082`)
   6. ⚔️ **Copper Rust** (`#B7410E`)
 
----
-
-## ⚔️ Completed Development Roadmap (Phases 1 - 5)
-
-- [x] **Phase 1: Core Logic & Setup**: Dynamic player roster (3–6 wizards), Heraldry Color duplication locking, form validation, and `localStorage` state hook.
-- [x] **Phase 2: Bidding Interface**: Interactive Slot Machine Wheel UI, Turn Rotation (`(currentRound - 1) % playerCount`), and dynamic Last Player Restriction Rule.
-- [x] **Phase 3: The Circular Table & Resolution**: Trigonometric circular button math ($\theta_i = i \times \frac{360^\circ}{N} - 90^\circ$), tap controls with undo, trick resolution validation, and score hiding.
-- [x] **Phase 4: Theming & The Endgame Reveal**: Sequential reveal pacing from Last Place to Winner, screen shake, unfurling heraldry banners, digital falling gold coin confetti, and round history breakdown.
-- [x] **Phase 5: Polish & PWA Deployment**:
-  - **PWA Manifest & Icons**: Added `manifest.json`, `icon.svg`, Apple iOS touch icon, and standalone web app capability.
-  - **Touch & Accessibility Optimization**: Touch-action locks, double-tap prevention, and safe-area inset padding for iPhone Safari.
-  - **Add to Home Screen Prompt**: Built-in iOS Safari PWA prompt banner for seamless native mobile installation.
-  - **CI/CD Integration**: Automated GitHub Actions workflow compiling and deploying static bundle on push to `main`.
-
----
-
 ## 🛠️ Tech Stack
 
 * **Framework:** React 19 (via Vite 6)
@@ -70,16 +54,3 @@
    ```bash
    npm run build
    ```
-
----
-
-## 🌐 Live GitHub Pages Deployment
-
-This repository features automated CI/CD via `.github/workflows/deploy.yml`.
-
-To enable GitHub Pages hosting:
-1. Open your repository: `https://github.com/egeaktemur/arcane_abacus`
-2. Open **Settings** -> **Pages**.
-3. Set **Source** to **GitHub Actions**.
-4. Access your live application at:  
-   👉 **`https://egeaktemur.github.io/arcane_abacus/`**

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CircularTable } from './CircularTable';
-import { Scroll, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
+import { TerminateMatchModal } from './TerminateMatchModal';
+import { Scroll, Shield, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
 
 export const ResolutionScreen = ({
   gameState,
   incrementActual,
   decrementActual,
   finalizeRound,
+  resetGame,
 }) => {
+  const [showTerminateModal, setShowTerminateModal] = useState(false);
   const { players, currentRound, maxRounds, roundData } = gameState;
   const { bids = {}, actuals = {} } = roundData;
 
@@ -51,14 +54,33 @@ export const ResolutionScreen = ({
           </div>
 
           {/* Cumulative Score Hiding Note */}
-          <div className="text-right">
-            <span className="text-[10px] font-cinzel text-[#D4AF37]/70 uppercase block">Scores</span>
-            <span className="text-xs font-cinzel font-semibold text-white/80 bg-black/40 px-2 py-0.5 rounded">
-              🔒 Hidden
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <span className="text-[10px] font-cinzel text-[#D4AF37]/70 uppercase block">Scores</span>
+              <span className="text-xs font-cinzel font-semibold text-white/80 bg-black/40 px-2 py-0.5 rounded">
+                🔒 Hidden
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowTerminateModal(true)}
+              title="Terminate Match"
+              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#8B0000]/40 transition-all active:scale-95 shrink-0"
+            >
+              <XCircle className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </motion.div>
+
+      <TerminateMatchModal
+        isOpen={showTerminateModal}
+        onCancel={() => setShowTerminateModal(false)}
+        onConfirm={() => {
+          setShowTerminateModal(false);
+          resetGame();
+        }}
+      />
 
       {/* Center Table Layout */}
       <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2">
