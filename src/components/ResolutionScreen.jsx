@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CircularTable } from './CircularTable';
 import { TerminateMatchModal } from './TerminateMatchModal';
-import { Scroll, Shield, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
+import { ScoreTableModal } from './ScoreTableModal';
+import { Scroll, CheckCircle2, XCircle, Table2 } from 'lucide-react';
 
 export const ResolutionScreen = ({
   gameState,
@@ -12,7 +13,8 @@ export const ResolutionScreen = ({
   resetGame,
 }) => {
   const [showTerminateModal, setShowTerminateModal] = useState(false);
-  const { players, currentRound, maxRounds, roundData } = gameState;
+  const [showScoreTable, setShowScoreTable] = useState(false);
+  const { players, currentRound, maxRounds, roundData, history = [] } = gameState;
   const { bids = {}, actuals = {} } = roundData;
 
   // Total actual tricks entered so far across all players
@@ -26,7 +28,7 @@ export const ResolutionScreen = ({
       <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-xl z-10"
@@ -34,33 +36,18 @@ export const ResolutionScreen = ({
         <div className="flex items-center justify-between bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl px-4 py-2.5 shadow-xl">
           <div className="flex items-center gap-2">
             <Scroll className="w-5 h-5 text-[#D4AF37]" />
-            <div>
-              <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Phase III • Round Table</span>
-              <span className="text-base sm:text-lg font-bold font-cinzel text-[#F3E8D2]">
-                Round {currentRound} of {maxRounds}
-              </span>
-            </div>
+            <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase">Phase III • Round Table</span>
           </div>
 
-          <div className="text-center">
-            <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Tricks Accounted For</span>
-            <span className={`text-base font-extrabold font-cinzel px-2.5 py-0.5 rounded-full ${
-              isValidRoundResolution 
-                ? 'bg-emerald-900/90 text-emerald-200 border border-emerald-400/50' 
-                : 'bg-amber-950/80 text-amber-300 border border-amber-500/40'
-            }`}>
-              {totalActuals} / {currentRound}
-            </span>
-          </div>
-
-          {/* Cumulative Score Hiding Note */}
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <span className="text-[10px] font-cinzel text-[#D4AF37]/70 uppercase block">Scores</span>
-              <span className="text-xs font-cinzel font-semibold text-white/80 bg-black/40 px-2 py-0.5 rounded">
-                🔒 Hidden
-              </span>
-            </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowScoreTable(true)}
+              title="View Score Ledger"
+              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37]/20 transition-all active:scale-95 shrink-0"
+            >
+              <Table2 className="w-4 h-4" />
+            </button>
             <button
               type="button"
               onClick={() => setShowTerminateModal(true)}
@@ -82,8 +69,30 @@ export const ResolutionScreen = ({
         }}
       />
 
+      <ScoreTableModal
+        isOpen={showScoreTable}
+        onClose={() => setShowScoreTable(false)}
+        players={players}
+        history={history}
+      />
+
       {/* Center Table Layout */}
-      <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2">
+      <div className="my-auto w-full max-w-2xl z-10 flex flex-col items-center justify-center py-2 gap-9 sm:gap-11">
+        {/* Compact Round / Tricks Indicator */}
+        <div className="flex items-center gap-2 bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-full px-4 py-1.5 shadow-lg">
+          <span className="text-xs sm:text-sm font-bold font-cinzel text-[#F3E8D2]">
+            Round {currentRound}/{maxRounds}
+          </span>
+          <span className="w-px h-3.5 bg-[#D4AF37]/40" />
+          <span className={`text-xs sm:text-sm font-bold font-cinzel px-2 py-0.5 rounded-full ${
+            isValidRoundResolution
+              ? 'bg-emerald-900/90 text-emerald-200'
+              : 'bg-amber-950/80 text-amber-300'
+          }`}>
+            Tricks {totalActuals}/{currentRound}
+          </span>
+        </div>
+
         <CircularTable
           players={players}
           bids={bids}
@@ -94,22 +103,11 @@ export const ResolutionScreen = ({
       </div>
 
       {/* Bottom Action Footer */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-xl z-10 mt-2"
       >
-        {!isValidRoundResolution && (
-          <div className="mb-3 p-2.5 rounded-xl bg-amber-950/80 border border-amber-500/40 text-amber-200 text-xs font-cinzel flex items-center justify-center gap-2 text-center shadow-lg">
-            <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>
-              {totalActuals < currentRound 
-                ? `Account for ${currentRound - totalActuals} more trick(s) before finalizing.` 
-                : `Over-allocated by ${totalActuals - currentRound} trick(s). Use minus button to adjust.`}
-            </span>
-          </div>
-        )}
-
         <button
           type="button"
           disabled={!isValidRoundResolution}

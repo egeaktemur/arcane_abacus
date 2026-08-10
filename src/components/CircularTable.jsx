@@ -12,8 +12,16 @@ export const CircularTable = ({
 }) => {
   const playerCount = players.length;
 
+  // Circle diameter shrinks as more players share the ring, to avoid overlap
+  const circleSizeClasses =
+    playerCount >= 6
+      ? 'w-24 h-24 sm:w-32 sm:h-32'
+      : playerCount === 5
+        ? 'w-28 h-28 sm:w-36 sm:h-36'
+        : 'w-36 h-36 sm:w-44 sm:h-44';
+
   return (
-    <div className="relative w-full max-w-[440px] sm:max-w-[540px] aspect-square mx-auto flex items-center justify-center">
+    <div className="relative w-full max-w-[480px] sm:max-w-[580px] aspect-square mx-auto flex items-center justify-center">
       {/* Circular Player Buttons */}
       {players.map((player, index) => {
         // Trigonometry calculation
@@ -26,7 +34,7 @@ export const CircularTable = ({
         const yPercent = radiusPercent * Math.sin(angleRad);
 
         // Rotation of content element so text faces outward to player sitting at that side
-        const rotationDeg = angleDeg + 90;
+        const rotationDeg = angleDeg - 90;
 
         const heraldry = HERALDRY_COLORS.find(c => c.hex === player.color) || HERALDRY_COLORS[0];
         const bid = bids[player.id] !== undefined ? bids[player.id] : 0;
@@ -52,9 +60,9 @@ export const CircularTable = ({
               className="flex flex-col items-center justify-center"
             >
               {/* Enlarged Circular Main Player Button */}
-              <div 
-                className={`w-34 sm:w-42 h-34 sm:h-42 rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-3 flex flex-col items-center justify-between text-white relative transition-all duration-300 ${
-                  isCurrentlyExact ? 'ring-4 ring-emerald-500/90 scale-105 shadow-[0_0_30px_rgba(34,139,34,0.7)]' : 'hover:scale-102'
+              <div
+                className={`${circleSizeClasses} rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-3 flex flex-col items-center justify-between text-white relative transition-all duration-300 ${
+                  isCurrentlyExact ? 'ring-4 ring-emerald-500/90 shadow-[0_0_30px_rgba(34,139,34,0.7)]' : ''
                 }`}
                 style={{ 
                   backgroundColor: player.color,
@@ -101,29 +109,28 @@ export const CircularTable = ({
                   className="absolute inset-0 rounded-full cursor-pointer opacity-0 hover:opacity-10 active:opacity-25 bg-white transition-opacity"
                   aria-label={`Increment tricks won for ${player.name}`}
                 />
-              </div>
 
-              {/* Controls: Plus & Undo/Minus Buttons */}
-              <div className="flex items-center gap-3 mt-2 z-30">
+                {/* Undo / Decrement, anchored on the circle's edge */}
                 <button
                   type="button"
                   onClick={() => onDecrement(player.id)}
                   disabled={actual <= 0}
-                  className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg transition-all ${
+                  className={`absolute -bottom-1.5 -left-1.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg z-30 transition-all ${
                     actual <= 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 active:scale-95 text-red-300'
                   }`}
                   title="Undo / Decrement Trick"
                 >
-                  <Minus className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
 
+                {/* Increment, anchored on the circle's edge */}
                 <button
                   type="button"
                   onClick={() => onIncrement(player.id)}
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold"
+                  className="absolute -bottom-1.5 -right-1.5 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl z-30 hover:scale-110 active:scale-95 font-bold"
                   title="Tap to Add Won Trick"
                 >
-                  <Plus className="w-5 h-5 sm:w-6 sm:h-6 text-[#D4AF37]" />
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
                 </button>
               </div>
             </motion.div>
