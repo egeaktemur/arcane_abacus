@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="128" fill="#3E2723"/>
+  <circle cx="256" cy="256" r="210" fill="#2A1810" stroke="#D4AF37" stroke-width="12"/>
+  <circle cx="256" cy="256" r="170" fill="#F3E8D2" stroke="#8B0000" stroke-width="8"/>
+  <text x="256" y="320" font-size="200" text-anchor="middle" font-family="serif" fill="#D4AF37">🔮</text>
+</svg>

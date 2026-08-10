@@ -4,6 +4,7 @@ import { SetupScreen } from './components/SetupScreen';
 import { BiddingScreen } from './components/BiddingScreen';
 import { ResolutionScreen } from './components/ResolutionScreen';
 import { EndgameScreen } from './components/EndgameScreen';
+import { InstallPwaBanner } from './components/InstallPwaBanner';
 import { GAME_STATES } from './types/game';
 
 export default function App() {
@@ -25,7 +26,9 @@ export default function App() {
   } = useGameState();
 
   return (
-    <div className="app-container min-h-screen bg-[#2A1810]">
+    <div className="app-container min-h-screen bg-[#2A1810] relative">
+      <InstallPwaBanner />
+
       {gameState.gameState === GAME_STATES.SETUP && (
         <SetupScreen
           gameState={gameState}
