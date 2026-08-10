@@ -79,7 +79,7 @@ export const BiddingScreen = ({
 
   return (
     <div className="h-full flex flex-col items-center justify-between p-4 sm:p-6 medieval-bg relative overflow-hidden select-none">
-      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] [background-position:center] opacity-10 pointer-events-none" />
 
       {/* Header Info Banner */}
       <motion.div 
@@ -216,25 +216,29 @@ export const BiddingScreen = ({
         className="w-full max-w-lg z-10 mt-4"
       >
         <div className="bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl p-3 shadow-xl">
-          {/* Player Bids Badges Row */}
-          <div className="flex items-center justify-around gap-1.5 overflow-x-auto py-1">
+          {/* Player Bids Badges Row(s) */}
+          <div className="flex flex-wrap justify-center gap-1.5 py-1">
             {biddingOrder.map((playerIdx, stepIdx) => {
               const p = players[playerIdx];
               const pBid = bids[p.id];
               const isCurrentStep = stepIdx === currentBidStep;
               const hasBid = pBid !== undefined;
+              const cols = playerCount >= 3 ? Math.ceil(playerCount / 2) : playerCount;
 
               return (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => setBidStep(stepIdx)}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-center transition-all border flex flex-col items-center justify-center ${
+                  className={`py-1.5 px-2 rounded-xl text-center transition-all border flex flex-col items-center justify-center ${
                     isCurrentStep
                       ? 'ring-2 ring-[#D4AF37] scale-105 shadow-md border-white/60'
                       : 'opacity-80 hover:opacity-100 border-black/30'
                   }`}
-                  style={{ backgroundColor: p.color }}
+                  style={{
+                    backgroundColor: p.color,
+                    flex: `0 1 calc(${100 / cols}% - 0.375rem)`
+                  }}
                 >
                   <span className="text-[10px] font-cinzel font-bold text-white truncate max-w-[60px]">
                     {p.name}
