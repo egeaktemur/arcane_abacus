@@ -1,4 +1,4 @@
-# 🔮 Arcane Abacus
+# Arcane Abacus
 
 > A web-based, mobile-first companion application for the card game **Wizard**, designed with an authentic Medieval German (*Alte Deutsche*) tavern aesthetic.
 
