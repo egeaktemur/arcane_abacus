@@ -26,7 +26,15 @@ export default function App() {
   } = useGameState();
 
   return (
-    <div className="app-container min-h-screen bg-[#2A1810] relative">
+    <div
+      className="app-container min-h-dvh box-border bg-[#2A1810] relative"
+      style={{
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'env(safe-area-inset-left)',
+        paddingRight: 'env(safe-area-inset-right)',
+      }}
+    >
       <InstallPwaBanner />
 
       {gameState.gameState === GAME_STATES.SETUP && (
