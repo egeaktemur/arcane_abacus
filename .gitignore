@@ -26,3 +26,10 @@ dist-ssr
 
 # Specification & Scratch files
 project.MD
+
+# Local tooling/notes (kept locally, not tracked)
+.claude/
+.github/hooks/
+.impeccable/
+AUDIT.md
+PRODUCT.md
