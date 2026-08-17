@@ -79,7 +79,7 @@ export const BiddingScreen = ({
 
   return (
     <div className="h-full flex flex-col items-center justify-between p-4 sm:p-6 medieval-bg relative overflow-hidden select-none">
-      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] [background-position:center] opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--color-gold)_1px,transparent_1px)] [background-size:24px_24px] [background-position:center] opacity-10 pointer-events-none" />
 
       {/* Header Info Banner */}
       <motion.div 
@@ -87,12 +87,12 @@ export const BiddingScreen = ({
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-lg z-10"
       >
-        <div className="flex items-center justify-between bg-[#3E2723]/90 border border-[#D4AF37]/40 rounded-xl px-4 py-2.5 shadow-lg">
+        <div className="flex items-center justify-between bg-wood/90 border border-gold/40 rounded-xl px-4 py-2.5 shadow-lg">
           <div className="flex items-center gap-2">
-            <Scroll className="w-5 h-5 text-[#D4AF37]" />
+            <Scroll className="w-5 h-5 text-gold" />
             <div>
-              <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase block">Phase II</span>
-              <span className="text-sm sm:text-base font-bold font-cinzel text-[#F3E8D2]">
+              <span className="text-xs font-cinzel text-gold/80 uppercase block">Phase II</span>
+              <span className="text-sm sm:text-base font-bold font-cinzel text-parchment">
                 Round {currentRound} of {maxRounds}
               </span>
             </div>
@@ -103,7 +103,7 @@ export const BiddingScreen = ({
               type="button"
               onClick={() => setShowTerminateModal(true)}
               title="Terminate Match"
-              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#8B0000]/40 transition-all active:scale-95 shrink-0"
+              className="w-9 h-9 rounded-lg bg-wood-dark border border-gold/50 flex items-center justify-center text-gold hover:bg-crimson/40 transition-all active:scale-95 shrink-0"
             >
               <XCircle className="w-4 h-4" />
             </button>
@@ -131,7 +131,7 @@ export const BiddingScreen = ({
         <div className="parchment-bg pattern-dragon rounded-3xl p-5 sm:p-7 medieval-border shadow-2xl relative">
           {/* Active Wizard Banner (Colored in Heraldry Color) */}
           <div 
-            className="rounded-2xl p-4 mb-6 shadow-xl border-2 border-[#D4AF37]/70 flex items-center justify-between text-white relative overflow-hidden"
+            className="rounded-2xl p-4 mb-6 shadow-xl border-2 border-gold/70 flex items-center justify-between text-white relative overflow-hidden"
             style={{ backgroundColor: currentWizard.color }}
           >
             {/* Background Glow */}
@@ -147,7 +147,7 @@ export const BiddingScreen = ({
                     {currentWizard.name}
                   </h2>
                   {currentBidStep === 0 && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#D4AF37] text-[#2C1810] text-[10px] font-extrabold font-cinzel flex items-center gap-1 shadow">
+                    <span className="px-2 py-0.5 rounded-full bg-gold text-ink text-[10px] font-extrabold font-cinzel flex items-center gap-1 shadow">
                       <Crown className="w-3 h-3 fill-current" /> Lead
                     </span>
                   )}
@@ -177,11 +177,11 @@ export const BiddingScreen = ({
               className={`w-12 h-12 rounded-xl border font-cinzel flex items-center justify-center transition-all ${
                 isFirstBidder
                   ? 'opacity-30 cursor-not-allowed bg-gray-200 border-gray-400 text-gray-500'
-                  : 'bg-[#3E2723] hover:bg-[#2A1810] text-[#F3E8D2] border-[#D4AF37]/50 shadow-md active:scale-95'
+                  : 'bg-wood hover:bg-wood-dark text-parchment border-gold/50 shadow-md active:scale-95'
               }`}
               title="Previous Wizard Bid"
             >
-              <ChevronLeft className="w-6 h-6 text-[#D4AF37]" />
+              <ChevronLeft className="w-6 h-6 text-gold" />
             </button>
 
             {/* Center Slot: Confirm & Next / Seal All Bids Button */}
@@ -192,14 +192,14 @@ export const BiddingScreen = ({
               className={`w-full py-4 rounded-xl font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl text-center ${
                 currentBidVal === forbiddenBid
                   ? 'bg-gray-400 text-gray-700 cursor-not-allowed border border-gray-500'
-                  : 'bg-gradient-to-r from-[#8B0000] via-[#5C0A0A] to-[#8B0000] text-[#F3E8D2] hover:brightness-110 active:scale-[0.98] border border-[#D4AF37]/60'
+                  : 'bg-gradient-to-r from-crimson via-crimson-dark to-crimson text-parchment hover:brightness-110 active:scale-[0.98] border border-gold/60'
               }`}
             >
               <span>{isLastBidder ? 'Seal All Bids' : 'Confirm'}</span>
               {isLastBidder ? (
-                <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
+                <CheckCircle2 className="w-5 h-5 text-gold" />
               ) : (
-                <ChevronRight className="w-5 h-5 text-[#D4AF37]" />
+                <ChevronRight className="w-5 h-5 text-gold" />
               )}
             </button>
 
@@ -215,7 +215,7 @@ export const BiddingScreen = ({
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-lg z-10 mt-4"
       >
-        <div className="bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl p-3 shadow-xl">
+        <div className="bg-wood/95 border border-gold/40 rounded-2xl p-3 shadow-xl">
           {/* Player Bids Badges Row(s) */}
           <div className="flex flex-wrap justify-center gap-1.5 py-1">
             {biddingOrder.map((playerIdx, stepIdx) => {
@@ -232,7 +232,7 @@ export const BiddingScreen = ({
                   onClick={() => setBidStep(stepIdx)}
                   className={`py-1.5 px-2 rounded-xl text-center transition-all border flex flex-col items-center justify-center ${
                     isCurrentStep
-                      ? 'ring-2 ring-[#D4AF37] scale-105 shadow-md border-white/60'
+                      ? 'ring-2 ring-gold scale-105 shadow-md border-white/60'
                       : 'opacity-80 hover:opacity-100 border-black/30'
                   }`}
                   style={{

@@ -22,29 +22,29 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
           >
             <div className="flex items-center justify-between mb-3 shrink-0">
               <div className="flex items-center gap-2">
-                <ScrollText className="w-5 h-5 text-[#8B0000]" />
-                <h2 className="text-lg font-bold font-cinzel text-[#2C1810]">Round Score Ledger</h2>
+                <ScrollText className="w-5 h-5 text-crimson" />
+                <h2 className="text-lg font-bold font-cinzel text-ink">Round Score Ledger</h2>
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-[#3E2723] hover:bg-[#3E2723]/10 transition-colors"
+                className="p-1.5 rounded-lg text-wood hover:bg-wood/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {history.length === 0 ? (
-              <p className="text-sm font-cinzel text-[#3E2723]/70 text-center py-6">
+              <p className="text-sm font-cinzel text-wood/70 text-center py-6">
                 No rounds finalized yet.
               </p>
             ) : (
-              <div className="touch-scroll overflow-auto rounded-lg border border-[#3E2723]/25">
+              <div className="touch-scroll overflow-auto rounded-lg border border-wood/25">
                 <table className="w-full text-sm border-collapse">
-                  <thead className="sticky top-0 bg-[#3E2723] text-[#F3E8D2] z-10">
+                  <thead className="sticky top-0 bg-wood text-parchment z-10">
                     <tr>
                       <th
-                        className="w-9 p-0 relative border-b-2 border-r border-[#F3E8D2]/20"
+                        className="w-9 p-0 relative border-b-2 border-r border-parchment/20"
                         style={{
                           backgroundImage:
                             'linear-gradient(to top right, transparent calc(50% - 1px), rgba(243,232,210,0.3) 50%, transparent calc(50% + 1px))',
@@ -53,7 +53,7 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
                       {players.map(p => (
                         <th
                           key={p.id}
-                          className="p-0 h-16 border-b-2 border-l border-[#F3E8D2]/20 align-bottom"
+                          className="p-0 h-16 border-b-2 border-l border-parchment/20 align-bottom"
                         >
                           <div className="flex h-full items-end justify-center pb-1.5">
                             <span className="inline-block origin-bottom-left -rotate-45 whitespace-nowrap font-cinzel text-xs uppercase tracking-wide">
@@ -68,9 +68,9 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
                     {history.map((record) => (
                       <tr
                         key={record.roundNumber}
-                        className="border-b border-[#3E2723]/15 last:border-b-0"
+                        className="border-b border-wood/15 last:border-b-0"
                       >
-                        <td className="px-2 py-2 text-center font-cinzel font-bold text-[#2C1810]/60 border-r border-[#3E2723]/15">
+                        <td className="px-2 py-2 text-center font-cinzel font-bold text-ink/60 border-r border-wood/15">
                           {record.roundNumber}
                         </td>
                         {players.map(p => {
@@ -80,7 +80,7 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
                             <td
                               key={p.id}
                               className={`px-2 py-2 text-center font-cinzel font-semibold ${
-                                delta === undefined ? 'text-[#3E2723]/30' : isPositive ? 'text-emerald-700' : 'text-[#8B0000]'
+                                delta === undefined ? 'text-wood/30' : isPositive ? 'text-emerald-700' : 'text-crimson'
                               }`}
                             >
                               {delta === undefined ? '—' : isPositive ? `+${delta}` : delta}

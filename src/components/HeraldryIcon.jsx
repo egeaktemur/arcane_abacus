@@ -23,7 +23,7 @@ export const HeraldryIcon = ({ id, color, size = 32, bare = false, className = '
 
   return (
     <span
-      className={`inline-flex items-center justify-center rounded-full bg-[#F8F1E1] border-2 border-[#D4AF37] shadow-md shrink-0 ${className}`}
+      className={`inline-flex items-center justify-center rounded-full bg-[#F8F1E1] border-2 border-gold shadow-md shrink-0 ${className}`}
       style={{ width: size, height: size, ...style }}
     >
       <Glyph size={size * 0.58} color={color} strokeWidth={2.25} />

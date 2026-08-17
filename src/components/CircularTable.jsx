@@ -25,8 +25,8 @@ export const CircularTable = ({
   // +/- controls hug the heraldry icon tighter as more players share the ring,
   // so the tangential control group doesn't collide with a neighboring seat's controls
   const controlsGapClass = playerCount >= 6 ? 'gap-0' : playerCount >= 4 ? 'gap-0.5' : 'gap-1.5';
-  const controlButtonSizeClasses = playerCount >= 4 ? 'w-6 h-6 sm:w-7 sm:h-7' : 'w-7 h-7 sm:w-8 sm:h-8';
-  const incrementButtonSizeClasses = playerCount >= 4 ? 'w-7 h-7 sm:w-8 sm:h-8' : 'w-8 h-8 sm:w-9 sm:h-9';
+  const controlButtonSizeClasses = playerCount >= 6 ? 'w-7 h-7' : playerCount >= 4 ? 'w-8 h-8 sm:w-9 sm:h-9' : 'w-9 h-9 sm:w-10 sm:h-10';
+  const incrementButtonSizeClasses = playerCount >= 6 ? 'w-8 h-8' : playerCount >= 4 ? 'w-9 h-9 sm:w-10 sm:h-10' : 'w-10 h-10 sm:w-11 sm:h-11';
   const heraldrySize = playerCount >= 4 ? 32 : 40;
 
   return (
@@ -83,7 +83,7 @@ export const CircularTable = ({
                 initial={{ scale: 0, rotate: rotationDeg }}
                 animate={{ scale: 1, rotate: rotationDeg }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
-                className={`w-full h-full rounded-full border-4 border-[#D4AF37] shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-2 sm:p-2.5 flex flex-col items-center justify-center gap-1 text-white relative transition-all duration-300 ${
+                className={`w-full h-full rounded-full border-4 border-gold shadow-[0_10px_25px_rgba(0,0,0,0.6)] p-2 sm:p-2.5 flex flex-col items-center justify-center gap-1 text-white relative transition-all duration-300 ${
                   isCurrentlyExact ? 'ring-4 ring-emerald-500/90 shadow-[0_0_30px_rgba(34,139,34,0.7)]' : ''
                 }`}
                 style={{
@@ -100,8 +100,8 @@ export const CircularTable = ({
                 {/* Stats Row: Bid, Actual, Points together */}
                 <div className="flex items-center justify-center gap-1 sm:gap-2 bg-black/40 w-full px-0.5 py-1 sm:py-1.5 rounded-xl border border-white/30 shadow-inner overflow-hidden">
                   <div className="flex flex-col items-center gap-0.5 min-w-0" title="Bid">
-                    <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF37]/80 shrink-0" />
-                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-[#D4AF37] leading-none text-center tabular-nums">{bid}</span>
+                    <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold/80 shrink-0" />
+                    <span className="text-2xl sm:text-3xl font-black font-cinzel text-gold leading-none text-center tabular-nums">{bid}</span>
                   </div>
                   <div className="h-6 sm:h-7 w-[1.5px] bg-white/30 shrink-0" />
                   <div className="flex flex-col items-center gap-0.5 min-w-0" title="Actual">
@@ -141,12 +141,12 @@ export const CircularTable = ({
                 <button
                   type="button"
                   onClick={() => onIncrement(player.id)}
-                  className={`${incrementButtonSizeClasses} rounded-full bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] border-2 border-[#D4AF37] flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold shrink-0 pointer-events-auto`}
+                  className={`${incrementButtonSizeClasses} rounded-full bg-gradient-to-r from-crimson to-crimson-dark text-parchment border-2 border-gold flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 font-bold shrink-0 pointer-events-auto`}
                   style={{ clipPath: 'circle(50%)' }}
                   title="Tap to Add Won Trick"
                 >
                   <Plus
-                    className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-gold"
                     style={{ transform: `rotate(${-tangentDeg}deg)` }}
                   />
                 </button>
@@ -163,7 +163,7 @@ export const CircularTable = ({
                   type="button"
                   onClick={() => onDecrement(player.id)}
                   disabled={actual <= 0}
-                  className={`${controlButtonSizeClasses} rounded-full bg-[#3E2723] text-[#F3E8D2] border-2 border-[#D4AF37]/60 flex items-center justify-center shadow-lg transition-all shrink-0 pointer-events-auto ${
+                  className={`${controlButtonSizeClasses} rounded-full bg-wood text-parchment border-2 border-gold/60 flex items-center justify-center shadow-lg transition-all shrink-0 pointer-events-auto ${
                     actual <= 0 ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 active:scale-95 text-red-300'
                   }`}
                   style={{ clipPath: 'circle(50%)' }}

@@ -71,7 +71,7 @@ export const SlotMachineWheel = ({
       <div 
         ref={containerRef}
         onWheel={handleWheel}
-        className="w-60 sm:w-72 h-56 sm:h-64 parchment-bg border-4 border-[#3E2723] rounded-3xl relative shadow-[0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing"
+        className="w-60 sm:w-72 h-56 sm:h-64 parchment-bg border-4 border-wood rounded-3xl relative shadow-[0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing"
         style={{
           perspective: '850px',
           perspectiveOrigin: '50% 50%',
@@ -79,35 +79,35 @@ export const SlotMachineWheel = ({
       >
         {/* Brass Raffle Drum Side Rivets & Mechanical Detailing */}
         <div className="absolute left-2.5 inset-y-0 w-3.5 flex flex-col justify-around py-4 z-30 pointer-events-none">
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
         </div>
         <div className="absolute right-2.5 inset-y-0 w-3.5 flex flex-col justify-around py-4 z-30 pointer-events-none">
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
-          <div className="w-3 h-3 rounded-full bg-[#D4AF37] border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-gold border border-black/70 shadow-inner" />
         </div>
 
         {/* 3D Cylindrical Lighting Overlay (Top & Bottom Curve Shadows) */}
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#1A0C08]/95 via-[#2A1810]/70 to-transparent z-20 pointer-events-none flex items-start justify-center pt-2">
-          <span className="text-[10px] uppercase font-cinzel tracking-widest text-[#D4AF37]/60 flex items-center gap-1">
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-wood-darker/95 via-wood-dark/70 to-transparent z-20 pointer-events-none flex items-start justify-center pt-2">
+          <span className="text-[10px] uppercase font-cinzel tracking-widest text-gold/60 flex items-center gap-1">
             <MoveVertical className="w-3 h-3" /> Swipe / Scroll
           </span>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#1A0C08]/95 via-[#2A1810]/70 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-wood-darker/95 via-wood-dark/70 to-transparent z-20 pointer-events-none" />
 
         {/* Outer Metallic Gold Frame Rim */}
-        <div className="absolute inset-2 border-2 border-[#D4AF37]/70 rounded-2xl pointer-events-none z-20" />
+        <div className="absolute inset-2 border-2 border-gold/70 rounded-2xl pointer-events-none z-20" />
 
         {/* Central 3D Selection Lens Highlight */}
         <div 
-          className="absolute inset-x-4 h-18 sm:h-22 bg-[#3E2723]/20 border-y-2 border-[#D4AF37] pointer-events-none z-20 flex items-center justify-between px-3 rounded-xl shadow-[inset_0_0_20px_rgba(212,175,55,0.35)]"
+          className="absolute inset-x-4 h-18 sm:h-22 bg-wood/20 border-y-2 border-gold pointer-events-none z-20 flex items-center justify-between px-3 rounded-xl shadow-[inset_0_0_20px_rgba(212,175,55,0.35)]"
         >
-          <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_#D4AF37]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_#D4AF37]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_var(--color-gold)]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_var(--color-gold)]" />
         </div>
 
         {/* Interactive 3D Raffle Cylinder Stage */}
@@ -148,10 +148,10 @@ export const SlotMachineWheel = ({
                 transition={{ type: 'spring', stiffness: 320, damping: 30 }}
                 className={`absolute w-48 sm:w-56 py-2.5 rounded-2xl flex items-center justify-center gap-2 border-2 transition-colors cursor-pointer ${
                   isSelected
-                    ? 'z-30 shadow-[0_12px_30px_rgba(0,0,0,0.7)] font-extrabold border-[#D4AF37]'
+                    ? 'z-30 shadow-[0_12px_30px_rgba(0,0,0,0.7)] font-extrabold border-gold'
                     : isForbidden
                       ? 'bg-red-950/40 text-red-900 border-red-800/40 cursor-not-allowed'
-                      : 'bg-[#E5D3B3]/80 text-[#2C1810] border-[#3E2723]/30 hover:bg-[#F3E8D2]'
+                      : 'bg-parchment-dim/80 text-ink border-wood/30 hover:bg-parchment'
                 }`}
                 style={
                   isSelected && !isForbidden

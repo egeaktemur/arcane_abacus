@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-gold: #D4AF37;
+  --color-wood: #3E2723;
+  --color-wood-dark: #2A1810;
+  --color-wood-darker: #1A0C08;
+  --color-crimson: #8B0000;
+  --color-crimson-dark: #5C0A0A;
+  --color-parchment: #F3E8D2;
+  --color-parchment-dim: #E5D3B3;
+  --color-ink: #2C1810;
+}
+
 @layer base {
   :root {
     --font-fraktur: 'UnifrakturMaguntia', cursive, serif;
@@ -149,6 +161,17 @@
 
 .animate-unfurl {
   animation: unfurlBanner 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Trophy float: a pair of back-to-back exponential ease-out decelerations,
+   so each half reads as a real object settling rather than an elastic bounce. */
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-22%); }
+}
+
+.animate-icon-float {
+  animation: trophyFloat 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 /* Scrollable panels (modals, endgame ledger) get contained, momentum touch scrolling

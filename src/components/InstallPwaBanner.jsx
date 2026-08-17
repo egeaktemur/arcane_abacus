@@ -36,15 +36,15 @@ export const InstallPwaBanner = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 50 }}
-        className="fixed bottom-4 left-4 right-4 z-50 max-w-md mx-auto bg-[#3E2723] border-2 border-[#D4AF37] text-[#F3E8D2] rounded-2xl p-4 shadow-2xl backdrop-blur-md"
+        className="fixed bottom-4 left-4 right-4 z-50 max-w-md mx-auto bg-wood border-2 border-gold text-parchment rounded-2xl p-4 shadow-2xl backdrop-blur-md"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#8B0000] border border-[#D4AF37] flex items-center justify-center text-xl shrink-0 shadow">
+            <div className="w-10 h-10 rounded-xl bg-crimson border border-gold flex items-center justify-center text-xl shrink-0 shadow">
               🔮
             </div>
             <div>
-              <h4 className="font-bold text-sm font-cinzel text-[#D4AF37]">
+              <h4 className="font-bold text-sm font-cinzel text-gold">
                 Add Arcane Abacus to Home Screen
               </h4>
               <p className="text-xs text-white/80 font-cinzel mt-0.5">
@@ -58,17 +58,17 @@ export const InstallPwaBanner = () => {
           <button
             type="button"
             onClick={handleDismiss}
-            className="p-1 rounded-lg text-[#D4AF37] hover:bg-black/30 transition-colors"
+            className="p-1 rounded-lg text-gold hover:bg-black/30 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {isIos && (
-          <div className="mt-2.5 pt-2 border-t border-[#D4AF37]/30 flex items-center justify-center gap-3 text-[11px] font-cinzel text-[#D4AF37]/90">
-            <span className="flex items-center gap-1">1. Tap <Share className="w-3.5 h-3.5 inline text-[#D4AF37]" /></span>
+          <div className="mt-2.5 pt-2 border-t border-gold/30 flex items-center justify-center gap-3 text-[11px] font-cinzel text-gold/90">
+            <span className="flex items-center gap-1">1. Tap <Share className="w-3.5 h-3.5 inline text-gold" /></span>
             <span>➔</span>
-            <span className="flex items-center gap-1">2. Select <PlusSquare className="w-3.5 h-3.5 inline text-[#D4AF37]" /> Add to Home Screen</span>
+            <span className="flex items-center gap-1">2. Select <PlusSquare className="w-3.5 h-3.5 inline text-gold" /> Add to Home Screen</span>
           </div>
         )}
       </motion.div>

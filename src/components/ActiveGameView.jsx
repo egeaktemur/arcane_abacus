@@ -10,7 +10,7 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 medieval-bg relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--color-gold)_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
@@ -18,30 +18,30 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
         className="w-full max-w-xl z-10"
       >
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-[#F3E8D2] gold-text-glow font-fraktur mb-1">
+          <h1 className="text-4xl font-bold text-parchment gold-text-glow font-fraktur mb-1">
             Bids Sealed for Round {currentRound}!
           </h1>
-          <p className="text-sm font-cinzel text-[#D4AF37]">
+          <p className="text-sm font-cinzel text-gold">
             Phase II Complete • Bidding Interface Verified
           </p>
         </div>
 
         <div className="parchment-bg pattern-griffin rounded-2xl p-6 sm:p-8 medieval-border shadow-2xl relative">
-          <div className="flex items-center justify-between border-b-2 border-[#3E2723]/30 pb-4 mb-6">
+          <div className="flex items-center justify-between border-b-2 border-wood/30 pb-4 mb-6">
             <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-[#8B0000]" />
-              <span className="font-cinzel font-bold text-lg text-[#2C1810]">
+              <BookOpen className="w-5 h-5 text-crimson" />
+              <span className="font-cinzel font-bold text-lg text-ink">
                 Round {currentRound} of {maxRounds}
               </span>
             </div>
-            <div className="flex items-center gap-1 bg-[#3E2723] text-[#D4AF37] px-3 py-1 rounded-full text-xs font-cinzel font-bold shadow-inner">
+            <div className="flex items-center gap-1 bg-wood text-gold px-3 py-1 rounded-full text-xs font-cinzel font-bold shadow-inner">
               <Users className="w-3.5 h-3.5" />
               <span>{players.length} Wizards</span>
             </div>
           </div>
 
           {/* Sealed Bids Overview */}
-          <h3 className="text-sm font-bold font-cinzel text-[#3E2723] uppercase mb-3 flex items-center gap-1.5">
+          <h3 className="text-sm font-bold font-cinzel text-wood uppercase mb-3 flex items-center gap-1.5">
             <CheckCircle2 className="w-4 h-4 text-[#228B22]" /> Sealed Round Bids:
           </h3>
 
@@ -72,8 +72,8 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
             })}
           </div>
 
-          <div className="p-4 rounded-xl bg-[#E5D3B3]/80 border border-[#3E2723]/20 mb-6 text-xs text-[#3E2723] font-cinzel leading-relaxed">
-            <div className="flex items-center gap-2 font-bold mb-1 text-[#8B0000]">
+          <div className="p-4 rounded-xl bg-parchment-dim/80 border border-wood/20 mb-6 text-xs text-wood font-cinzel leading-relaxed">
+            <div className="flex items-center gap-2 font-bold mb-1 text-crimson">
               <Shield className="w-4 h-4" />
               <span>Phase II Verification</span>
             </div>
@@ -84,9 +84,9 @@ export const ActiveGameView = ({ gameState, resetGame }) => {
           <button
             type="button"
             onClick={resetGame}
-            className="w-full py-3.5 rounded-xl bg-[#3E2723] hover:bg-[#2A1810] text-[#F3E8D2] border border-[#D4AF37]/50 font-cinzel font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
+            className="w-full py-3.5 rounded-xl bg-wood hover:bg-wood-dark text-parchment border border-gold/50 font-cinzel font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"
           >
-            <RotateCcw className="w-4 h-4 text-[#D4AF37]" />
+            <RotateCcw className="w-4 h-4 text-gold" />
             <span>Return to Setup & Start New Game</span>
           </button>
         </div>

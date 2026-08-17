@@ -25,7 +25,7 @@ export const ResolutionScreen = ({
 
   return (
     <div className="h-full flex flex-col items-center justify-between p-3 sm:p-5 medieval-bg relative overflow-hidden select-none">
-      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--color-gold)_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
       {/* Header Info */}
       <motion.div
@@ -33,10 +33,10 @@ export const ResolutionScreen = ({
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-xl z-10"
       >
-        <div className="flex items-center justify-between bg-[#3E2723]/95 border border-[#D4AF37]/40 rounded-2xl px-4 py-2.5 shadow-xl">
+        <div className="flex items-center justify-between bg-wood/95 border border-gold/40 rounded-2xl px-4 py-2.5 shadow-xl">
           <div className="flex items-center gap-2">
-            <Scroll className="w-5 h-5 text-[#D4AF37]" />
-            <span className="text-xs font-cinzel text-[#D4AF37]/80 uppercase">Phase III • Round Table</span>
+            <Scroll className="w-5 h-5 text-gold" />
+            <span className="text-xs font-cinzel text-gold/80 uppercase">Phase III • Round Table</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -44,7 +44,7 @@ export const ResolutionScreen = ({
               type="button"
               onClick={() => setShowScoreTable(true)}
               title="View Score Ledger"
-              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37]/20 transition-all active:scale-95 shrink-0"
+              className="w-9 h-9 rounded-lg bg-wood-dark border border-gold/50 flex items-center justify-center text-gold hover:bg-gold/20 transition-all active:scale-95 shrink-0"
             >
               <Table2 className="w-4 h-4" />
             </button>
@@ -52,7 +52,7 @@ export const ResolutionScreen = ({
               type="button"
               onClick={() => setShowTerminateModal(true)}
               title="Terminate Match"
-              className="w-9 h-9 rounded-lg bg-[#2A1810] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] hover:bg-[#8B0000]/40 transition-all active:scale-95 shrink-0"
+              className="w-9 h-9 rounded-lg bg-wood-dark border border-gold/50 flex items-center justify-center text-gold hover:bg-crimson/40 transition-all active:scale-95 shrink-0"
             >
               <XCircle className="w-4 h-4" />
             </button>
@@ -93,7 +93,7 @@ export const ResolutionScreen = ({
                   background: `conic-gradient(#D4AF37 ${(currentRound / maxRounds) * 360}deg, rgba(212,175,55,0.18) 0deg)`,
                 }}
               >
-                <div className={`w-full h-full rounded-full bg-[#3E2723] border flex flex-col items-center justify-center gap-0.5 ${
+                <div className={`w-full h-full rounded-full bg-wood border flex flex-col items-center justify-center gap-0.5 ${
                   isValidRoundResolution ? 'border-emerald-400/50' : 'border-amber-500/40'
                 }`}>
                   {isValidRoundResolution ? (
@@ -125,11 +125,11 @@ export const ResolutionScreen = ({
           onClick={finalizeRound}
           className={`w-full py-4 rounded-2xl font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl ${
             isValidRoundResolution
-              ? 'bg-gradient-to-r from-[#8B0000] via-[#5C0A0A] to-[#8B0000] text-[#F3E8D2] hover:brightness-110 active:scale-[0.98] border-2 border-[#D4AF37]'
+              ? 'bg-gradient-to-r from-crimson via-crimson-dark to-crimson text-parchment hover:brightness-110 active:scale-[0.98] border-2 border-gold'
               : 'bg-gray-500/30 text-gray-400 cursor-not-allowed border border-gray-500/20'
           }`}
         >
-          <CheckCircle2 className={`w-6 h-6 ${isValidRoundResolution ? 'text-[#D4AF37]' : 'text-gray-500'}`} />
+          <CheckCircle2 className={`w-6 h-6 ${isValidRoundResolution ? 'text-gold' : 'text-gray-500'}`} />
           <span>{currentRound === maxRounds ? 'Finalize & Reveal Endgame' : 'Finalize Round'}</span>
         </button>
       </motion.div>

@@ -110,7 +110,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
       screenShaking ? 'animate-shake' : ''
     }`}>
       {/* Dark Ambient Background with Gold Particles */}
-      <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(var(--color-gold)_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
 
       {/* Header */}
       <motion.div 
@@ -118,17 +118,17 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
         animate={{ opacity: 1, y: 0 }}
         className="text-center z-10 my-2"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#3E2723]/90 border border-[#D4AF37]/50 shadow-lg mb-2">
-          <Trophy className="w-4 h-4 text-[#D4AF37] animate-bounce" />
-          <span className="text-xs font-cinzel text-[#D4AF37] uppercase tracking-widest font-bold">
+        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-wood/90 border border-gold/50 shadow-lg mb-2">
+          <Trophy className="w-4 h-4 text-gold animate-icon-float" />
+          <span className="text-xs font-cinzel text-gold uppercase tracking-widest font-bold">
             The Endgame Reveal
           </span>
-          <Trophy className="w-4 h-4 text-[#D4AF37] animate-bounce" />
+          <Trophy className="w-4 h-4 text-gold animate-icon-float" />
         </div>
-        <h1 className="text-4xl sm:text-5xl font-bold text-[#F3E8D2] gold-text-glow font-fraktur">
+        <h1 className="text-4xl sm:text-5xl font-bold text-parchment gold-text-glow font-fraktur">
           {isAllRevealed ? 'Grand Wizard Tournament Champion' : 'Revealing Final Scores...'}
         </h1>
-        <p className="text-xs sm:text-sm font-cinzel text-[#D4AF37]/80 italic mt-1">
+        <p className="text-xs sm:text-sm font-cinzel text-gold/80 italic mt-1">
           {isAllRevealed ? 'All scores unsealed! All hail the victor!' : 'Pacing from lowest score up to champion'}
         </p>
       </motion.div>
@@ -137,14 +137,14 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
       <div className="w-full max-w-xl my-auto z-10 space-y-4">
         {/* Reveal Progress Control Bar */}
         {!isAllRevealed && (
-          <div className="flex items-center justify-between bg-[#3E2723]/90 border border-[#D4AF37]/40 rounded-xl px-4 py-2 text-xs font-cinzel text-[#D4AF37] shadow-lg">
+          <div className="flex items-center justify-between bg-wood/90 border border-gold/40 rounded-xl px-4 py-2 text-xs font-cinzel text-gold shadow-lg">
             <span>Revealed: <strong>{revealedCount}</strong> of <strong>{totalCount}</strong> Wizards</span>
 
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="p-1.5 rounded-lg bg-[#2A1810] hover:bg-black/40 text-[#D4AF37] border border-[#D4AF37]/40 transition-all flex items-center gap-1"
+                className="p-1.5 rounded-lg bg-wood-dark hover:bg-black/40 text-gold border border-gold/40 transition-all flex items-center gap-1"
                 title={isAutoPlaying ? 'Pause Auto Reveal' : 'Resume Auto Reveal'}
               >
                 {isAutoPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -154,7 +154,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
               <button
                 type="button"
                 onClick={advanceReveal}
-                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#8B0000] to-[#5C0A0A] text-[#F3E8D2] font-bold border border-[#D4AF37] hover:brightness-110 active:scale-95 transition-all shadow"
+                className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-crimson to-crimson-dark text-parchment font-bold border border-gold hover:brightness-110 active:scale-95 transition-all shadow"
               >
                 Reveal Next
               </button>
@@ -182,12 +182,12 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                   transition={{ duration: 0.6 }}
                   className={`rounded-2xl p-4 border-2 shadow-2xl relative transition-all duration-500 overflow-hidden ${
                     !isRevealed
-                      ? 'bg-[#3E2723]/60 border-[#D4AF37]/20 text-[#D4AF37]/50'
+                      ? 'bg-wood/60 border-gold/20 text-gold/50'
                       : isWinner
-                        ? 'animate-unfurl bg-gradient-to-r from-[#D4AF37] via-[#FBC02D] to-[#D4AF37] border-white text-[#2C1810] ring-4 ring-[#D4AF37]/70 scale-105 shadow-[0_0_30px_rgba(212,175,55,0.8)]'
+                        ? 'animate-unfurl bg-gradient-to-r from-gold via-[#FBC02D] to-gold border-white text-ink ring-4 ring-gold/70 scale-105 shadow-[0_0_30px_rgba(212,175,55,0.8)]'
                         : isLastPlace
-                          ? 'bg-[#1A0C08] border-red-900/60 text-red-200'
-                          : 'bg-[#3E2723] border-[#D4AF37]/60 text-white'
+                          ? 'bg-wood-darker border-red-900/60 text-red-200'
+                          : 'bg-wood border-gold/60 text-white'
                   }`}
                   style={isRevealed && !isWinner && !isLastPlace ? { backgroundColor: player.color } : {}}
                 >
@@ -195,14 +195,14 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                   {!isRevealed ? (
                     <div className="flex items-center justify-between px-2 py-1">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-black/40 border border-[#D4AF37]/30 flex items-center justify-center font-cinzel font-bold text-sm">
+                        <div className="w-9 h-9 rounded-full bg-black/40 border border-gold/30 flex items-center justify-center font-cinzel font-bold text-sm">
                           #{actualRank}
                         </div>
                         <span className="font-cinzel text-sm italic">
                           Rank #{actualRank} Sealed Under Wax...
                         </span>
                       </div>
-                      <Sparkles className="w-4 h-4 text-[#D4AF37]/40 animate-pulse" />
+                      <Sparkles className="w-4 h-4 text-gold/40 animate-pulse" />
                     </div>
                   ) : (
                     /* Revealed Player Banner */
@@ -211,23 +211,23 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                         {/* Rank Badge */}
                         <div className={`w-11 h-11 rounded-full flex items-center justify-center font-extrabold font-cinzel text-lg shadow-lg border ${
                           isWinner 
-                            ? 'bg-[#2C1810] text-[#D4AF37] border-[#D4AF37]' 
+                            ? 'bg-ink text-gold border-gold' 
                             : isLastPlace 
                               ? 'bg-red-950 text-red-400 border-red-800' 
                               : 'bg-black/40 text-white border-white/40'
                         }`}>
-                          {isWinner ? <Crown className="w-6 h-6 text-[#D4AF37]" /> : `#${actualRank}`}
+                          {isWinner ? <Crown className="w-6 h-6 text-gold" /> : `#${actualRank}`}
                         </div>
 
                         <div>
                           <div className="flex items-center gap-2">
                             <h3 className={`text-lg sm:text-xl font-bold font-cinzel drop-shadow ${
-                              isWinner ? 'text-[#2C1810]' : 'text-white'
+                              isWinner ? 'text-ink' : 'text-white'
                             }`}>
                               {player.name}
                             </h3>
                             {isWinner && (
-                              <span className="px-2 py-0.5 rounded-full bg-[#2C1810] text-[#D4AF37] text-[10px] font-extrabold font-cinzel uppercase shadow">
+                              <span className="px-2 py-0.5 rounded-full bg-ink text-gold text-[10px] font-extrabold font-cinzel uppercase shadow">
                                 👑 Tournament Champion
                               </span>
                             )}
@@ -238,7 +238,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                             )}
                           </div>
                           <span className={`text-xs font-cinzel uppercase flex items-center gap-1 ${
-                            isWinner ? 'text-[#2C1810]/80' : 'text-white/80'
+                            isWinner ? 'text-ink/80' : 'text-white/80'
                           }`}>
                             <HeraldryIcon id={heraldry.id} color={player.color} size={16} />
                             {heraldry.name}
@@ -249,12 +249,12 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                       {/* Final Score */}
                       <div className="text-right z-10">
                         <span className={`text-[10px] uppercase font-cinzel block ${
-                          isWinner ? 'text-[#2C1810]/70' : 'text-white/70'
+                          isWinner ? 'text-ink/70' : 'text-white/70'
                         }`}>
                           Final Score
                         </span>
                         <span className={`text-2xl sm:text-3xl font-extrabold font-cinzel drop-shadow ${
-                          isWinner ? 'text-[#2C1810]' : 'text-white'
+                          isWinner ? 'text-ink' : 'text-white'
                         }`}>
                           {player.totalScore || 0} pts
                         </span>
@@ -277,7 +277,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
             <button
               type="button"
               onClick={() => setShowHistory(!showHistory)}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#3E2723] hover:bg-[#2A1810] text-[#D4AF37] border border-[#D4AF37]/40 text-xs font-cinzel font-bold flex items-center justify-between transition-all shadow-md"
+              className="w-full py-2.5 px-4 rounded-xl bg-wood hover:bg-wood-dark text-gold border border-gold/40 text-xs font-cinzel font-bold flex items-center justify-between transition-all shadow-md"
             >
               <div className="flex items-center gap-2">
                 <Scroll className="w-4 h-4" />
@@ -291,11 +291,11 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="touch-scroll mt-3 parchment-bg pattern-stag rounded-xl p-4 border border-[#3E2723]/30 overflow-x-auto max-h-60 shadow-inner"
+                className="touch-scroll mt-3 parchment-bg pattern-stag rounded-xl p-4 border border-wood/30 overflow-x-auto max-h-60 shadow-inner"
               >
-                <table className="w-full text-xs font-cinzel text-[#2C1810]">
+                <table className="w-full text-xs font-cinzel text-ink">
                   <thead>
-                    <tr className="border-b border-[#3E2723]/30">
+                    <tr className="border-b border-wood/30">
                       <th className="py-1 px-2 text-left">Round</th>
                       {players.map(p => (
                         <th key={p.id} className="py-1 px-2 text-center" style={{ color: p.color }}>
@@ -306,7 +306,7 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
                   </thead>
                   <tbody>
                     {history.map((record, rIdx) => (
-                      <tr key={rIdx} className="border-b border-[#3E2723]/10 hover:bg-black/5">
+                      <tr key={rIdx} className="border-b border-wood/10 hover:bg-black/5">
                         <td className="py-1.5 px-2 font-bold">R{record.roundNumber}</td>
                         {players.map(p => {
                           const bid = record.bids[p.id] !== undefined ? record.bids[p.id] : '-';
@@ -343,9 +343,9 @@ export const EndgameScreen = ({ gameState, resetGame }) => {
         <button
           type="button"
           onClick={resetGame}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#8B0000] via-[#5C0A0A] to-[#8B0000] text-[#F3E8D2] font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-2 border-2 border-[#D4AF37] hover:brightness-110 active:scale-95 shadow-2xl transition-all"
+          className="w-full py-4 rounded-2xl bg-gradient-to-r from-crimson via-crimson-dark to-crimson text-parchment font-cinzel font-bold text-base sm:text-lg uppercase tracking-wider flex items-center justify-center gap-2 border-2 border-gold hover:brightness-110 active:scale-95 shadow-2xl transition-all"
         >
-          <RotateCcw className="w-5 h-5 text-[#D4AF37]" />
+          <RotateCcw className="w-5 h-5 text-gold" />
           <span>Return to Setup & Play Again</span>
         </button>
       </motion.div>
