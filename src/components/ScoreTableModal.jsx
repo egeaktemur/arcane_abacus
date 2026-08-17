@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ScrollText } from 'lucide-react';
+import { X, ScrollText, Undo2 } from 'lucide-react';
 
-export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
+export const ScoreTableModal = ({ isOpen, onClose, players, history, onReopenLastRound }) => {
+  const lastRound = history.length > 0 ? history[history.length - 1] : null;
   return (
     <AnimatePresence>
       {isOpen && (
@@ -65,33 +66,50 @@ export const ScoreTableModal = ({ isOpen, onClose, players, history }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {history.map((record) => (
-                      <tr
-                        key={record.roundNumber}
-                        className="border-b border-wood/15 last:border-b-0"
-                      >
-                        <td className="px-2 py-2 text-center font-cinzel font-bold text-ink/60 border-r border-wood/15">
-                          {record.roundNumber}
-                        </td>
-                        {players.map(p => {
-                          const delta = record.scores?.[p.id];
-                          const isPositive = (delta || 0) >= 0;
-                          return (
-                            <td
-                              key={p.id}
-                              className={`px-2 py-2 text-center font-cinzel font-semibold ${
-                                delta === undefined ? 'text-wood/30' : isPositive ? 'text-emerald-700' : 'text-crimson'
-                              }`}
-                            >
-                              {delta === undefined ? '—' : isPositive ? `+${delta}` : delta}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    ))}
+                    {history.map((record) => {
+                      const isLastRound = record.roundNumber === lastRound?.roundNumber;
+                      return (
+                        <tr
+                          key={record.roundNumber}
+                          className={`border-b border-wood/15 last:border-b-0 ${isLastRound ? 'bg-gold/10' : ''}`}
+                        >
+                          <td className="px-2 py-2 text-center font-cinzel font-bold text-ink/60 border-r border-wood/15">
+                            {record.roundNumber}
+                          </td>
+                          {players.map(p => {
+                            const delta = record.scores?.[p.id];
+                            const isPositive = (delta || 0) >= 0;
+                            return (
+                              <td
+                                key={p.id}
+                                className={`px-2 py-2 text-center font-cinzel font-semibold ${
+                                  delta === undefined ? 'text-wood/30' : isPositive ? 'text-emerald-700' : 'text-crimson'
+                                }`}
+                              >
+                                {delta === undefined ? '—' : isPositive ? `+${delta}` : delta}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
+            )}
+
+            {onReopenLastRound && lastRound && (
+              <button
+                type="button"
+                onClick={() => {
+                  onReopenLastRound();
+                  onClose();
+                }}
+                className="mt-3 shrink-0 w-full py-2.5 rounded-xl border border-wood/40 bg-wood/5 text-ink font-cinzel font-bold text-sm flex items-center justify-center gap-2 hover:bg-wood/10 active:scale-[0.98] transition-all"
+              >
+                <Undo2 className="w-4 h-4 text-crimson" />
+                <span>Reopen Round {lastRound.roundNumber} to Fix a Mistake</span>
+              </button>
             )}
           </motion.div>
         </motion.div>

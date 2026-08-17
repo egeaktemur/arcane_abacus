@@ -10,6 +10,7 @@ export const ResolutionScreen = ({
   incrementActual,
   decrementActual,
   finalizeRound,
+  reopenLastRound,
   resetGame,
 }) => {
   const [showTerminateModal, setShowTerminateModal] = useState(false);
@@ -74,6 +75,7 @@ export const ResolutionScreen = ({
         onClose={() => setShowScoreTable(false)}
         players={players}
         history={history}
+        onReopenLastRound={reopenLastRound}
       />
 
       {/* Center Table Layout */}

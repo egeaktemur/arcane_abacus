@@ -22,7 +22,8 @@ export default function App() {
     incrementActual,
     decrementActual,
     finalizeRound,
-    resetGame 
+    reopenLastRound,
+    resetGame
   } = useGameState();
 
   return (
@@ -55,6 +56,7 @@ export default function App() {
           prevBidder={prevBidder}
           setBidStep={setBidStep}
           finalizeBids={finalizeBids}
+          reopenLastRound={reopenLastRound}
           resetGame={resetGame}
         />
       )}
@@ -65,6 +67,7 @@ export default function App() {
           incrementActual={incrementActual}
           decrementActual={decrementActual}
           finalizeRound={finalizeRound}
+          reopenLastRound={reopenLastRound}
           resetGame={resetGame}
         />
       )}

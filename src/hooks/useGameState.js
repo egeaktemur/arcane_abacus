@@ -303,6 +303,41 @@ export const useGameState = () => {
     });
   }, []);
 
+  // Reopen the most recently finalized round for correction: reverses its score
+  // changes, restores its bids/actuals as the editable current round, and drops
+  // back into the Resolution screen so a miscounted trick can be fixed and
+  // re-finalized (finalizeRound then re-records history and advances as normal).
+  const reopenLastRound = useCallback(() => {
+    setGameState(prev => {
+      const { history = [] } = prev;
+      if (history.length === 0) return prev;
+
+      const lastRecord = history[history.length - 1];
+      const remainingHistory = history.slice(0, -1);
+
+      const revertedPlayers = prev.players.map(p => ({
+        ...p,
+        totalScore: (p.totalScore || 0) - (lastRecord.scores?.[p.id] || 0),
+      }));
+
+      const startingIndex = getStartingPlayerIndex(lastRecord.roundNumber, prev.players.length);
+
+      return {
+        ...prev,
+        gameState: GAME_STATES.RESOLUTION,
+        currentRound: lastRecord.roundNumber,
+        players: revertedPlayers,
+        history: remainingHistory,
+        roundData: {
+          startingPlayerIndex: startingIndex,
+          currentBidStep: prev.players.length - 1,
+          bids: { ...lastRecord.bids },
+          actuals: { ...lastRecord.actuals },
+        },
+      };
+    });
+  }, []);
+
   // Reset complete game state back to Setup
   const resetGame = useCallback(() => {
     setGameState(INITIAL_GAME_STATE);
@@ -322,6 +357,7 @@ export const useGameState = () => {
     incrementActual,
     decrementActual,
     finalizeRound,
+    reopenLastRound,
     resetGame,
   };
 };

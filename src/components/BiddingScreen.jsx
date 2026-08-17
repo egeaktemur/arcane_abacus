@@ -7,6 +7,7 @@ import {
 } from '../types/game';
 import { SlotMachineWheel } from './SlotMachineWheel';
 import { TerminateMatchModal } from './TerminateMatchModal';
+import { ScoreTableModal } from './ScoreTableModal';
 import { HeraldryIcon } from './HeraldryIcon';
 import {
   ChevronLeft,
@@ -14,7 +15,8 @@ import {
   Crown,
   Scroll,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Table2
 } from 'lucide-react';
 
 export const BiddingScreen = ({
@@ -24,10 +26,12 @@ export const BiddingScreen = ({
   prevBidder,
   setBidStep,
   finalizeBids,
+  reopenLastRound,
   resetGame,
 }) => {
   const [showTerminateModal, setShowTerminateModal] = useState(false);
-  const { players, currentRound, maxRounds, roundData } = gameState;
+  const [showScoreTable, setShowScoreTable] = useState(false);
+  const { players, currentRound, maxRounds, roundData, history = [] } = gameState;
   const playerCount = players.length;
   const { currentBidStep = 0, bids = {} } = roundData;
 
@@ -101,6 +105,14 @@ export const BiddingScreen = ({
           <div className="flex items-center gap-3">
             <button
               type="button"
+              onClick={() => setShowScoreTable(true)}
+              title="View Score Ledger"
+              className="w-9 h-9 rounded-lg bg-wood-dark border border-gold/50 flex items-center justify-center text-gold hover:bg-gold/20 transition-all active:scale-95 shrink-0"
+            >
+              <Table2 className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
               onClick={() => setShowTerminateModal(true)}
               title="Terminate Match"
               className="w-9 h-9 rounded-lg bg-wood-dark border border-gold/50 flex items-center justify-center text-gold hover:bg-crimson/40 transition-all active:scale-95 shrink-0"
@@ -118,6 +130,14 @@ export const BiddingScreen = ({
           setShowTerminateModal(false);
           resetGame();
         }}
+      />
+
+      <ScoreTableModal
+        isOpen={showScoreTable}
+        onClose={() => setShowScoreTable(false)}
+        players={players}
+        history={history}
+        onReopenLastRound={reopenLastRound}
       />
 
       {/* Main Bidding Card */}
